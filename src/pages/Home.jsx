@@ -33,6 +33,7 @@ function Home() {
         {products?.map((product) => (
           <ProductItem
             key={product.id}
+            uid={product.id}
             title={product.title}
             price={product.price}
             src={product.images[0]}

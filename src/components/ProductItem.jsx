@@ -1,4 +1,7 @@
-function ProductItem({ src, price, title }) {
+import { Link } from "react-router-dom";
+
+function ProductItem({ src, price, title, uid }) {
+  // console.log(uid);
   return (
     <div className="md:w-[300px] w-[180px] mt-10 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
@@ -78,12 +81,12 @@ function ProductItem({ src, price, title }) {
           <span className="text-3xl font-bold text-gray-900 dark:text-white">
             {`Rs.${price * 100}`}
           </span>
-          <a
-            href="#"
+          <Link
+            to={`/products/${uid}`}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4 md:mt-0 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             View
-          </a>
+          </Link>
         </div>
       </div>
     </div>

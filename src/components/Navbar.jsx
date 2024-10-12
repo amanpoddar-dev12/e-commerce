@@ -11,18 +11,19 @@ import {
 import { CiLight, CiDark } from "react-icons/ci";
 import Search from "./Search"; // Assuming Search is a child component
 import Filter from "./Filter";
+import { Link, NavLink } from "react-router-dom";
 
-const navigation = [
-  { name: "Store", href: "#", current: true },
-  { name: "About", href: "#", current: false },
-  { name: "Contact", href: "#", current: false },
-  { name: "Filter", href: "#", current: false },
-];
+// const navigation = [
+//   { name: "Store", href: "#", current: true },
+//   { name: "About", href: "#", current: false },
+//   { name: "Contact", href: "#", current: false },
+//   { name: "Filter", href: "#", current: false },
+// ];
 
 // Utility function to join class names
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 export default function Navbar() {
   const { toggleDarkMode, darkMode } = useContext(UserContext);
@@ -36,9 +37,8 @@ export default function Navbar() {
     <Disclosure as="nav" className="dark:bg-gray-900 bg-white">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
-          {/* Logo */}
-
-          <div className="flex flex-1 items-center justify-start ml-3 md:ml-0 sm:items-stretch sm:justify-start">
+          {/* Left Side: Logo, Search, and Filter */}
+          <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0">
               <img
                 alt="Your Company"
@@ -48,18 +48,22 @@ export default function Navbar() {
             </div>
 
             {/* Search Component */}
-            <div className="ml-2 md:ml-96">
-              <Search onSearch={handleSearch} />
-            </div>
-            <div className="ml-2">
-              {" "}
-              <Filter />
+            <div className="flex items-center gap-x-2 md:ml-60">
+              {/* Search Component */}
+              <div className="flex-1">
+                <Search onSearch={handleSearch} />
+              </div>
+
+              {/* Filter Component */}
+              <div className="flex-shrink-0">
+                <Filter />
+              </div>
             </div>
           </div>
 
           {/* Right Side: Dark mode toggle and user menu */}
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <Menu as="div" className="relative ml-3">
+          <div className="flex items-center gap-2">
+            <Menu as="div" className="relative">
               <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="sr-only">Open user menu</span>
                 <img
@@ -71,69 +75,52 @@ export default function Navbar() {
               <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md border-white border-x-2 border-y-2 bg-white dark:bg-slate-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                 <MenuItem>
                   {() => (
-                    <a
-                      href="#"
-                      className={
-                        "block px-4 py-2 text-sm text-white hover:dark:bg-slate-800"
-                      }
+                    <button
+                      type="button"
+                      className="dark:text-white text-black block w-full text-left px-4 py-2 text-sm"
+                      onClick={toggleDarkMode}
                     >
-                      <button
-                        type="button"
-                        className="dark:text-white text-black "
-                        onClick={toggleDarkMode}
-                      >
-                        <span className="sr-only">Toggle Dark Mode</span>
-                        {darkMode ? (
-                          <CiLight className="w-7 h-7" />
-                        ) : (
-                          <CiDark className="w-7 h-7" />
-                        )}
-                      </button>
-                    </a>
+                      <span className="sr-only">Toggle Dark Mode</span>
+                      {darkMode ? (
+                        <CiLight className="w-7 h-7" />
+                      ) : (
+                        <CiDark className="w-7 h-7" />
+                      )}
+                    </button>
                   )}
                 </MenuItem>
                 <MenuItem>
-                  {
-                    <a
-                      href="#"
-                      className={
-                        "block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
-                      }
-                    >
-                      Wishlist
-                    </a>
-                  }
+                  <Link
+                    to="/signup"
+                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                  >
+                    Sign In
+                  </Link>
                 </MenuItem>
                 <MenuItem>
-                  {
-                    <a
-                      href="#"
-                      className={
-                        "block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
-                      }
-                    >
-                      Your Profile
-                    </a>
-                  }
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                  >
+                    Wishlist
+                  </a>
                 </MenuItem>
                 <MenuItem>
-                  {
-                    <a className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800">
-                      Settings
-                    </a>
-                  }
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                  >
+                    Your Profile
+                  </a>
                 </MenuItem>
+
                 <MenuItem>
-                  {
-                    <a
-                      href="#"
-                      className={
-                        "block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
-                      }
-                    >
-                      Sign out
-                    </a>
-                  }
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                  >
+                    Sign out
+                  </a>
                 </MenuItem>
               </MenuItems>
             </Menu>
