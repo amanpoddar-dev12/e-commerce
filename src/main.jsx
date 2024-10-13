@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import ThemeProvider from "./themeContext/Theme.jsx";
 import { Provider } from "react-redux";
-import store from "./store/store.js"; // Ensure this path matches exactly
+import store from "./store/store.js";
 
 import {
   // BrowserRouter,
