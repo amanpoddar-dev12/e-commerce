@@ -14,12 +14,12 @@ import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDS2QT4j9ViwbGPZC31d0ukM4VCZaxA0bg",
-  authDomain: "e-commerce-307ca.firebaseapp.com",
-  projectId: "e-commerce-307ca",
-  storageBucket: "e-commerce-307ca.appspot.com",
-  messagingSenderId: "832057517126",
-  appId: "1:832057517126:web:b04357245a49b3bdc2d647",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
