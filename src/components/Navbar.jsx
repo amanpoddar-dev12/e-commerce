@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../themeContext/ThemeContext";
 
 import {
@@ -9,35 +9,29 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { CiLight, CiDark } from "react-icons/ci";
-import Search from "./Search"; // Assuming Search is a child component
+import Search from "./Search";
 import Filter from "./Filter";
 import { Link, NavLink } from "react-router-dom";
-
-// const navigation = [
-//   { name: "Store", href: "#", current: true },
-//   { name: "About", href: "#", current: false },
-//   { name: "Contact", href: "#", current: false },
-//   { name: "Filter", href: "#", current: false },
-// ];
-
-// Utility function to join class names
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(" ");
-// }
-
+import { UserDetail } from "../context/UserDetailsContext";
+import { FireBaseContext } from "../context/UserContext";
+import { FaRegQuestionCircle } from "react-icons/fa";
 export default function Navbar() {
   const { toggleDarkMode, darkMode } = useContext(UserContext);
-
+  const { isLoggedIn, logout, user } = useContext(FireBaseContext);
   const handleSearch = (query) => {
     console.log("Searching for:", query);
-    // Implement search logic (API call, filtering, etc.)
   };
 
+  const [imgSrc, setImgSrc] = useState(null);
+  useEffect(() => {
+    console.log(user);
+    setImgSrc(user?.photoURL);
+    console.log(imgSrc);
+  }, [user, imgSrc]);
   return (
     <Disclosure as="nav" className="dark:bg-gray-900 bg-white">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
-          {/* Left Side: Logo, Search, and Filter */}
           <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0">
               <img
@@ -47,30 +41,31 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Search Component */}
             <div className="flex items-center gap-x-2 md:ml-60">
-              {/* Search Component */}
               <div className="flex-1">
                 <Search onSearch={handleSearch} />
               </div>
 
-              {/* Filter Component */}
               <div className="flex-shrink-0">
                 <Filter />
               </div>
             </div>
           </div>
-
-          {/* Right Side: Dark mode toggle and user menu */}
           <div className="flex items-center gap-2">
             <Menu as="div" className="relative">
               <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="sr-only">Open user menu</span>
-                <img
-                  alt=""
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  className="h-8 w-8 rounded-full"
-                />
+                {!isLoggedIn ? (
+                  <img
+                    alt=""
+                    src={
+                      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/813px-Unknown_person.jpg"
+                    }
+                    className="h-8 w-8 rounded-full"
+                  />
+                ) : (
+                  <img alt="" src={imgSrc} className="h-8 w-8 rounded-full" />
+                )}
               </MenuButton>
               <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md border-white border-x-2 border-y-2 bg-white dark:bg-slate-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                 <MenuItem>
@@ -89,14 +84,18 @@ export default function Navbar() {
                     </button>
                   )}
                 </MenuItem>
-                <MenuItem>
-                  <Link
-                    to="/signup"
-                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
-                  >
-                    Sign In
-                  </Link>
-                </MenuItem>
+                {!isLoggedIn ? (
+                  <MenuItem>
+                    <Link
+                      to={"/signup"}
+                      className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                    >
+                      Sign In
+                    </Link>
+                  </MenuItem>
+                ) : (
+                  ""
+                )}
                 <MenuItem>
                   <a
                     href="#"
@@ -114,14 +113,18 @@ export default function Navbar() {
                   </a>
                 </MenuItem>
 
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
+                {isLoggedIn ? (
+                  <MenuItem onClick={logout}>
+                    <a
+                      href=""
+                      className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                    >
+                      Sign out
+                    </a>
+                  </MenuItem>
+                ) : (
+                  ""
+                )}
               </MenuItems>
             </Menu>
           </div>

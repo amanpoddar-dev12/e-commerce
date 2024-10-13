@@ -1,6 +1,66 @@
 import { CgLogIn } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FireBaseContext } from "../context/UserContext";
+import { useContext, useEffect, useState } from "react";
+import { UserDetail } from "../context/UserDetailsContext";
 function SignUp() {
+  const {
+    signUpUserWithEmailAndPassword,
+    signUpwithGoogle,
+    signUpwithGithub,
+    isLoggedIn,
+  } = useContext(FireBaseContext);
+  // const { userData, setUserData } = useContext(UserDetail);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   console.log(userData);
+  // }, [userData]);
+  const handleEmailSignUp = async () => {
+    try {
+      await signUpUserWithEmailAndPassword(email, password);
+      console.log("User signed up with email and password");
+    } catch (error) {
+      console.error("Email signup error:", error.message);
+    }
+  };
+  useEffect(() => {
+    if (isLoggedIn) navigate("/");
+  }, [isLoggedIn, navigate]);
+  const handleGoogleSignUp = async () => {
+    try {
+      const data = await signUpwithGoogle();
+      console.log(data);
+      console.log(data.user.displayName, data.user.email, data.user.photoURL);
+      console.log(isLoggedIn);
+      isLoggedIn ? navigate("/") : navigate("/signup");
+      // setUserData({
+      //   name: data.user.displayName,
+      //   email: data.user.email,
+      //   photoURL: data.user.photoURL,
+      // });
+      console.log("User signed up with Google");
+      // isLoggedIn ? navigate("/") : navigate("/signup");
+    } catch (error) {
+      console.error("Google signup error:", error.message);
+    }
+  };
+  const handleGithubSignUp = async () => {
+    try {
+      const data = await signUpwithGithub();
+      console.log("User signed up with GitHub");
+      console.log(data);
+      // setUserData({
+      //   name: data.user.displayName,
+      //   email: data.user.email,
+      //   photoURL: data.user.photoURL,
+      // });
+      isLoggedIn ? navigate("/") : navigate("/signup");
+    } catch (error) {
+      console.error("GitHub signup error:", error.message);
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-slate-900 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white dark:bg-slate-900  shadow sm:rounded-lg flex justify-center flex-1">
@@ -11,7 +71,10 @@ function SignUp() {
             </h1>
             <div className="w-full flex-1 mt-5">
               <div className="flex flex-col items-center">
-                <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button
+                  onClick={handleGoogleSignUp}
+                  className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                >
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path
@@ -35,7 +98,10 @@ function SignUp() {
                   <span className="ml-4">Sign Up with Google</span>
                 </button>
 
-                <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
+                <button
+                  onClick={handleGithubSignUp}
+                  className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5"
+                >
                   <div className="bg-white p-1 rounded-full">
                     <svg className="w-6" viewBox="0 0 32 32">
                       <path
@@ -57,13 +123,18 @@ function SignUp() {
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                   type="email"
                   placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                   type="password"
                   placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <button
+                  onClick={handleEmailSignUp}
+                  className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                >
                   <svg
                     className="w-6 h-6 -ml-2"
                     fill="none"
