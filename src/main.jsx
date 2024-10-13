@@ -3,9 +3,10 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import ThemeProvider from "./themeContext/Theme.jsx";
 import { Provider } from "react-redux";
-import store from "./Store/store.js";
+import store from "./store/store.js"; // Ensure this path matches exactly
+
 import {
-  BrowserRouter,
+  // BrowserRouter,
   createBrowserRouter,
   createRoutesFromElements,
   Route,
@@ -17,7 +18,7 @@ import ViewProduct from "./components/ViewProduct.jsx";
 import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import FireBaseProvider from "./context/UserContext.jsx";
-import UserDetailsProvider from "./context/UserDetailsContext.jsx";
+// import UserDetailsProvider from "./context/UserDetailsContext.jsx";
 
 // Define the router
 const router = createBrowserRouter(
