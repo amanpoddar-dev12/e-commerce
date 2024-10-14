@@ -11,11 +11,36 @@ export const fetchProductData = createAsyncThunk(
 const productSlice = createSlice({
   name: "product",
   initialState: {
-    products: [],
+    products: [], // Original products list
+    filteredProducts: [], // For filtered products
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    Clothes: (state) => {
+      state.filteredProducts = state.products.filter(
+        (product) => product.category.name === "Clothes"
+      );
+    },
+    Furniture: (state) => {
+      state.filteredProducts = state.products.filter(
+        (product) => product.category.name === "Furniture"
+      );
+    },
+    Electronics: (state) => {
+      state.filteredProducts = state.products.filter(
+        (product) => product.category.name === "Electronics"
+      );
+    },
+    Shoes: (state) => {
+      state.filteredProducts = state.products.filter(
+        (product) => product.category.name === "Shoes"
+      );
+    },
+    resetFilters: (state) => {
+      state.filteredProducts = state.products; // Reset filters
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProductData.pending, (state) => {
@@ -24,6 +49,7 @@ const productSlice = createSlice({
       .addCase(fetchProductData.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
+        state.filteredProducts = action.payload; // Set both products and filteredProducts
       })
       .addCase(fetchProductData.rejected, (state, action) => {
         state.loading = false;
@@ -31,5 +57,8 @@ const productSlice = createSlice({
       });
   },
 });
+
+export const { Clothes, Furniture, Electronics, Shoes, resetFilters } =
+  productSlice.actions;
 
 export default productSlice.reducer;

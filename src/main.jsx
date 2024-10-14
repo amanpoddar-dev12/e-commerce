@@ -18,6 +18,7 @@ import ViewProduct from "./components/ViewProduct.jsx";
 import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import FireBaseProvider from "./context/UserContext.jsx";
+import Profile from "./components/Profile.jsx";
 // import UserDetailsProvider from "./context/UserDetailsContext.jsx";
 
 // Define the router
@@ -27,7 +28,9 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/products/:id" element={<ViewProduct />} />
       <Route path="/login" element={<SignIn />} />
+      {/* <Route path="/clothes" element={<SignIn />} /> */}
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/profile" element={<Profile />} />
     </Route>
   )
 );

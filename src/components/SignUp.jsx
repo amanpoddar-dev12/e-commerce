@@ -10,16 +10,16 @@ function SignUp() {
     signUpwithGithub,
     isLoggedIn,
   } = useContext(FireBaseContext);
-  // const { userData, setUserData } = useContext(UserDetail);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   console.log(userData);
-  // }, [userData]);
+
   const handleEmailSignUp = async () => {
     try {
-      await signUpUserWithEmailAndPassword(email, password);
+      const data = await signUpUserWithEmailAndPassword(email, password);
+      isLoggedIn ? navigate("/") : navigate("/signup");
+      console.log(data);
       console.log("User signed up with email and password");
     } catch (error) {
       console.error("Email signup error:", error.message);
@@ -35,13 +35,7 @@ function SignUp() {
       console.log(data.user.displayName, data.user.email, data.user.photoURL);
       console.log(isLoggedIn);
       isLoggedIn ? navigate("/") : navigate("/signup");
-      // setUserData({
-      //   name: data.user.displayName,
-      //   email: data.user.email,
-      //   photoURL: data.user.photoURL,
-      // });
       console.log("User signed up with Google");
-      // isLoggedIn ? navigate("/") : navigate("/signup");
     } catch (error) {
       console.error("Google signup error:", error.message);
     }
@@ -51,11 +45,6 @@ function SignUp() {
       const data = await signUpwithGithub();
       console.log("User signed up with GitHub");
       console.log(data);
-      // setUserData({
-      //   name: data.user.displayName,
-      //   email: data.user.email,
-      //   photoURL: data.user.photoURL,
-      // });
       isLoggedIn ? navigate("/") : navigate("/signup");
     } catch (error) {
       console.error("GitHub signup error:", error.message);

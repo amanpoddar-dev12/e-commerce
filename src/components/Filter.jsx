@@ -1,6 +1,15 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { IoFilter } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import {
+  Clothes,
+  Electronics,
+  Furniture,
+  resetFilters,
+  Shoes,
+} from "../Features/productSlice";
 export default function Filter() {
+  const dispatch = useDispatch();
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -18,7 +27,19 @@ export default function Filter() {
         <div className="py-1">
           <MenuItem>
             <a
-              href="#"
+              onClick={() => {
+                dispatch(resetFilters());
+              }}
+              className="block px-4 py-2 text-sm dark:text-white hover:dark:text-black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+            >
+              All
+            </a>
+          </MenuItem>
+          <MenuItem>
+            <a
+              onClick={() => {
+                dispatch(Clothes());
+              }}
               className="block px-4 py-2 text-sm dark:text-white hover:dark:text-black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
             >
               Clothes
@@ -26,7 +47,7 @@ export default function Filter() {
           </MenuItem>
           <MenuItem>
             <a
-              href="#"
+              onClick={() => dispatch(Furniture())}
               className="block px-4 py-2 text-sm dark:text-white hover:dark:text-black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
             >
               Furniture
@@ -34,22 +55,22 @@ export default function Filter() {
           </MenuItem>
           <MenuItem>
             <a
-              href="#"
+              onClick={() => dispatch(Electronics())}
               className="block px-4 py-2 text-sm dark:text-white hover:dark:text-black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
             >
               Electronics
             </a>
           </MenuItem>
-          <form action="#" method="POST">
-            <MenuItem>
-              <button
-                type="submit"
-                className="block w-full px-4 py-2 text-left text-sm hover:dark:text-black dark:text-white data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-              >
-                Shoes
-              </button>
-            </MenuItem>
-          </form>
+
+          <MenuItem>
+            <a
+              onClick={() => dispatch(Shoes())}
+              type="submit"
+              className="block w-full px-4 py-2 text-left text-sm hover:dark:text-black dark:text-white data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+            >
+              Shoes
+            </a>
+          </MenuItem>
         </div>
       </MenuItems>
     </Menu>

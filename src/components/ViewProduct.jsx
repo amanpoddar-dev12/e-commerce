@@ -35,7 +35,7 @@ function ViewProduct() {
       />
     </div>
   ) : (
-    <div className=" flex flex-row min-h-screen justify-center items-center w-10 ">
+    <div className=" flex flex-row min-h-screen justify-center items-center   ">
       <ProductLoader />
     </div>
   );

@@ -12,9 +12,12 @@ import { CiLight, CiDark } from "react-icons/ci";
 import Search from "./Search";
 import Filter from "./Filter";
 import { Link, NavLink } from "react-router-dom";
-import { UserDetail } from "../context/UserDetailsContext";
+// import { UserDetail } from "../context/UserDetailsContext";
 import { FireBaseContext } from "../context/UserContext";
-import { FaRegQuestionCircle } from "react-icons/fa";
+// import { FaRegQuestionCircle } from "react-icons/fa";
+// import { CiSettings } from "react-icons/ci";
+// import { CiSettings } from "react-icons/ci";
+import { CiSettings } from "react-icons/ci";
 export default function Navbar() {
   const { toggleDarkMode, darkMode } = useContext(UserContext);
   const { isLoggedIn, logout, user } = useContext(FireBaseContext);
@@ -34,11 +37,13 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0">
-              <img
-                alt="Your Company"
-                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
-              />
+              <Link to={"/"}>
+                <img
+                  alt="Your Company"
+                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+                  className="h-8 w-auto"
+                />
+              </Link>
             </div>
 
             <div className="flex items-center gap-x-2 md:ml-60">
@@ -53,18 +58,24 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-2">
             <Menu as="div" className="relative">
-              <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+              <MenuButton className="relative flex rounded-full dark:bg-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="sr-only">Open user menu</span>
                 {!isLoggedIn ? (
+                  <CiSettings className="h-8 w-8 rounded-full" />
+                ) : imgSrc ? (
+                  <img
+                    alt=""
+                    src={imgSrc}
+                    className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
+                  />
+                ) : (
                   <img
                     alt=""
                     src={
-                      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/813px-Unknown_person.jpg"
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                     }
-                    className="h-8 w-8 rounded-full"
+                    className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
                   />
-                ) : (
-                  <img alt="" src={imgSrc} className="h-8 w-8 rounded-full" />
                 )}
               </MenuButton>
               <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md border-white border-x-2 border-y-2 bg-white dark:bg-slate-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5">
@@ -97,6 +108,15 @@ export default function Navbar() {
                   ""
                 )}
                 <MenuItem>
+                  <Link
+                    to={"/"}
+                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                  >
+                    Home
+                  </Link>
+                </MenuItem>
+
+                <MenuItem>
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
@@ -105,12 +125,12 @@ export default function Navbar() {
                   </a>
                 </MenuItem>
                 <MenuItem>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/profile"}
                     className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
                   >
                     Your Profile
-                  </a>
+                  </Link>
                 </MenuItem>
 
                 {isLoggedIn ? (

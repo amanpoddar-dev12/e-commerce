@@ -9,10 +9,6 @@ import {
 import { initializeApp } from "firebase/app";
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { createContext } from "react";
-import { UserDetail } from "./UserDetailsContext";
-import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
