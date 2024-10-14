@@ -6,7 +6,7 @@ import { GiMoneyStack } from "react-icons/gi";
 import StarRating from "custom-star-rating/dist/CustomStarRating";
 function ProductDetails({ src, price, title, uid, description }) {
   return (
-    <div className="flex  flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <div className="flex  flex-col items-center bg-white border  border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <img
         className="object-cover max-w-xl w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
         src={src}
@@ -36,7 +36,7 @@ function ProductDetails({ src, price, title, uid, description }) {
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
           <StarRating
             maxRating={5}
-            defaultRating={3}
+            defaultRating={Math.round(Math.random(1, 6) * 5)}
             size={20}
             color="gold"
             onSetMovieRating={(rating) => console.log(`New rating: ${rating}`)}
@@ -54,9 +54,12 @@ function ProductDetails({ src, price, title, uid, description }) {
             </span>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row md:items-center justify-between">
+        <div>
+          <p className="text-white">{description}</p>
+        </div>
+        <div className="flex flex-col md:flex-row md:items-center justify-between mt-5">
           <span className="text-3xl font-bold text-gray-900 dark:text-white">
-            {`Rs.${price * 100}`}
+            {`Rs.${Math.round(price * 84)}`}
           </span>
           <Link
             to={`/products/${uid}`}

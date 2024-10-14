@@ -13,6 +13,8 @@ function SignUp() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, isLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleEmailSignUp = async () => {
@@ -22,6 +24,7 @@ function SignUp() {
       console.log(data);
       console.log("User signed up with email and password");
     } catch (error) {
+      setError(error.message);
       console.error("Email signup error:", error.message);
     }
   };
@@ -37,6 +40,7 @@ function SignUp() {
       isLoggedIn ? navigate("/") : navigate("/signup");
       console.log("User signed up with Google");
     } catch (error) {
+      setError(error.message);
       console.error("Google signup error:", error.message);
     }
   };
@@ -47,9 +51,11 @@ function SignUp() {
       console.log(data);
       isLoggedIn ? navigate("/") : navigate("/signup");
     } catch (error) {
+      setError(error.message);
       console.error("GitHub signup error:", error.message);
     }
   };
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-slate-900 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white dark:bg-slate-900  shadow sm:rounded-lg flex justify-center flex-1">
@@ -102,7 +108,9 @@ function SignUp() {
                   <span className="ml-4">Sign Up with GitHub</span>
                 </button>
               </div>
+
               <div className="my-6 border-b text-center">
+                <p className="text-white">{error ? error : ""}</p>
                 <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                   Or sign up with e-mail
                 </div>

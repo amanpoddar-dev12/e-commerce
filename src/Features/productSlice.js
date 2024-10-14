@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchProductData = createAsyncThunk(
   "products/fetchProductData",
   async () => {
-    const response = await fetch(`https://api.escuelajs.co/api/v1/products`);
+    const response = await fetch("https://dummyjson.com/products");
     return response.json();
   }
 );
@@ -18,27 +18,41 @@ const productSlice = createSlice({
   },
   reducers: {
     Clothes: (state) => {
-      state.filteredProducts = state.products.filter(
-        (product) => product.category.name === "Clothes"
+      state.filteredProducts = state.products.products.filter(
+        (product) => product.category === "Clothes"
       );
     },
+    Groceries: (state) => {
+      state.filteredProducts = state.products.products.filter(
+        (product) => product.category === "groceries"
+      );
+    },
+
     Furniture: (state) => {
-      state.filteredProducts = state.products.filter(
-        (product) => product.category.name === "Furniture"
+      state.filteredProducts = state.products.products.filter(
+        (product) => product.category === "furniture"
       );
     },
-    Electronics: (state) => {
-      state.filteredProducts = state.products.filter(
-        (product) => product.category.name === "Electronics"
+    Beauty: (state) => {
+      state.filteredProducts = state.products.products.filter(
+        (product) => product.category === "beauty"
       );
+      console.log("Inside beauty slice ");
+      console.log(state.products.products);
+      console.log(state.filteredProducts);
     },
     Shoes: (state) => {
-      state.filteredProducts = state.products.filter(
-        (product) => product.category.name === "Shoes"
+      state.filteredProducts = state.products.products.filter(
+        (product) => product.category === "shoes"
+      );
+    },
+    Fragrances: (state) => {
+      state.filteredProducts = state.products.products.filter(
+        (product) => product.category === "fragrances"
       );
     },
     resetFilters: (state) => {
-      state.filteredProducts = state.products; // Reset filters
+      state.filteredProducts = state.products.products; // Reset filters
     },
   },
   extraReducers: (builder) => {
@@ -49,7 +63,7 @@ const productSlice = createSlice({
       .addCase(fetchProductData.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
-        state.filteredProducts = action.payload; // Set both products and filteredProducts
+        state.filteredProducts = action.payload;
       })
       .addCase(fetchProductData.rejected, (state, action) => {
         state.loading = false;
@@ -58,7 +72,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { Clothes, Furniture, Electronics, Shoes, resetFilters } =
+export const { Clothes, Furniture, Beauty, Shoes, resetFilters, Groceries } =
   productSlice.actions;
 
 export default productSlice.reducer;

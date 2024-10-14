@@ -79,7 +79,7 @@ function ProductItem({ src, price, title, uid }) {
         {/* Adjust this part for responsive layout */}
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <span className="text-3xl font-bold text-gray-900 dark:text-white">
-            {`Rs.${price * 100}`}
+            {`Rs.${Math.round(price * 84)}`}
           </span>
           <Link
             to={`/products/${uid}`}

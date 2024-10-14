@@ -11,9 +11,7 @@ function ViewProduct() {
   const { cleanURL } = useContext(FireBaseContext);
   useEffect(() => {
     const GetData = async () => {
-      const response = await fetch(
-        `https://api.escuelajs.co/api/v1/products/${id}`
-      );
+      const response = await fetch(`https://dummyjson.com/products/${id}`);
       console.log("id from params", id);
       const data = await response.json();
       setItem(data);
@@ -22,6 +20,7 @@ function ViewProduct() {
   }, [id]);
   useEffect(() => {
     console.log(item);
+    // console.log(item.rating);
   });
   return item ? (
     <div className=" flex flex-row min-h-screen justify-center items-center ">
@@ -32,6 +31,7 @@ function ViewProduct() {
         price={item.price}
         src={cleanURL(item.images[0])}
         description={item.description}
+        // rating={Math.round(item.rating)}
       />
     </div>
   ) : (

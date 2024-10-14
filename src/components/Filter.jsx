@@ -3,10 +3,11 @@ import { IoFilter } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import {
   Clothes,
-  Electronics,
+  Beauty,
   Furniture,
   resetFilters,
   Shoes,
+  Groceries,
 } from "../Features/productSlice";
 export default function Filter() {
   const dispatch = useDispatch();
@@ -38,11 +39,11 @@ export default function Filter() {
           <MenuItem>
             <a
               onClick={() => {
-                dispatch(Clothes());
+                dispatch(Groceries());
               }}
               className="block px-4 py-2 text-sm dark:text-white hover:dark:text-black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
             >
-              Clothes
+              Groceries
             </a>
           </MenuItem>
           <MenuItem>
@@ -55,10 +56,10 @@ export default function Filter() {
           </MenuItem>
           <MenuItem>
             <a
-              onClick={() => dispatch(Electronics())}
+              onClick={() => dispatch(Beauty())}
               className="block px-4 py-2 text-sm dark:text-white hover:dark:text-black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
             >
-              Electronics
+              Beauty
             </a>
           </MenuItem>
 

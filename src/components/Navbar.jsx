@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../themeContext/ThemeContext";
-
 import {
   Disclosure,
   Menu,
@@ -11,12 +10,8 @@ import {
 import { CiLight, CiDark } from "react-icons/ci";
 import Search from "./Search";
 import Filter from "./Filter";
-import { Link, NavLink } from "react-router-dom";
-// import { UserDetail } from "../context/UserDetailsContext";
+import { Link } from "react-router-dom";
 import { FireBaseContext } from "../context/UserContext";
-// import { FaRegQuestionCircle } from "react-icons/fa";
-// import { CiSettings } from "react-icons/ci";
-// import { CiSettings } from "react-icons/ci";
 import { CiSettings } from "react-icons/ci";
 export default function Navbar() {
   const { toggleDarkMode, darkMode } = useContext(UserContext);
@@ -24,11 +19,11 @@ export default function Navbar() {
   const handleSearch = (query) => {
     console.log("Searching for:", query);
   };
-
   const [imgSrc, setImgSrc] = useState(null);
   useEffect(() => {
     console.log(user);
     setImgSrc(user?.photoURL);
+    console.log("inside navbar profile");
     console.log(imgSrc);
   }, [user, imgSrc]);
   return (
@@ -60,23 +55,32 @@ export default function Navbar() {
             <Menu as="div" className="relative">
               <MenuButton className="relative flex rounded-full dark:bg-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="sr-only">Open user menu</span>
-                {!isLoggedIn ? (
-                  <CiSettings className="h-8 w-8 rounded-full" />
-                ) : imgSrc ? (
-                  <img
-                    alt=""
-                    src={imgSrc}
-                    className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
-                  />
-                ) : (
-                  <img
-                    alt=""
-                    src={
-                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                    }
-                    className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
-                  />
-                )}
+                {
+                  !isLoggedIn ? (
+                    <CiSettings className="h-8 w-8 rounded-full" />
+                  ) : (
+                    // imgSrc ? (
+                    <img
+                      alt=""
+                      src={
+                        imgSrc
+                          ? imgSrc
+                          : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                      }
+                      className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
+                    />
+                  )
+                  // )
+                  //   : (
+                  // <img
+                  //   alt=""
+                  //   src={
+                  //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  //   }
+                  //   className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
+                  // />
+                  // )
+                }
               </MenuButton>
               <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md border-white border-x-2 border-y-2 bg-white dark:bg-slate-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                 <MenuItem>
@@ -132,7 +136,6 @@ export default function Navbar() {
                     Your Profile
                   </Link>
                 </MenuItem>
-
                 {isLoggedIn ? (
                   <MenuItem onClick={logout}>
                     <a
