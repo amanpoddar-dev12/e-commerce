@@ -55,32 +55,20 @@ export default function Navbar() {
             <Menu as="div" className="relative">
               <MenuButton className="relative flex rounded-full dark:bg-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="sr-only">Open user menu</span>
-                {
-                  !isLoggedIn ? (
-                    <CiSettings className="h-8 w-8 rounded-full" />
-                  ) : (
-                    // imgSrc ? (
-                    <img
-                      alt=""
-                      src={
-                        imgSrc
-                          ? imgSrc
-                          : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                      }
-                      className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
-                    />
-                  )
-                  // )
-                  //   : (
-                  // <img
-                  //   alt=""
-                  //   src={
-                  //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                  //   }
-                  //   className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
-                  // />
-                  // )
-                }
+                {!isLoggedIn ? (
+                  <CiSettings className="h-8 w-8 rounded-full" />
+                ) : (
+                  // imgSrc ? (
+                  <img
+                    alt=""
+                    src={
+                      imgSrc
+                        ? imgSrc
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                    }
+                    className="h-8 w-8 rounded-full  text-black dark:bg-slate-900 dark:text-white"
+                  />
+                )}
               </MenuButton>
               <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md border-white border-x-2 border-y-2 bg-white dark:bg-slate-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                 <MenuItem>
@@ -121,13 +109,30 @@ export default function Navbar() {
                 </MenuItem>
 
                 <MenuItem>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/wishlist"}
                     className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
                   >
                     Wishlist
-                  </a>
+                  </Link>
                 </MenuItem>
+                <MenuItem>
+                  <Link
+                    to={"/cart"}
+                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                  >
+                    My cart
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link
+                    to={"/order"}
+                    className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+                  >
+                    Order
+                  </Link>
+                </MenuItem>
+
                 <MenuItem>
                   <Link
                     to={"/profile"}
@@ -156,3 +161,15 @@ export default function Navbar() {
     </Disclosure>
   );
 }
+
+// user[
+//   {
+//   user01{
+//   id:1,
+//   name:"Aman",
+//     orderid{ productname, quantity, pic, dateoforder, dateOfdelevery, orderprice },
+//     wishlist{ id, pic, name, rating, price },
+//     userData{name,email,place,productOrderd,userICreated}
+//     cart{name,id,image,rating,quantity}
+// }
+// }]

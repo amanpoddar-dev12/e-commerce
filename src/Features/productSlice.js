@@ -11,10 +11,12 @@ export const fetchProductData = createAsyncThunk(
 const productSlice = createSlice({
   name: "product",
   initialState: {
-    products: [], // Original products list
-    filteredProducts: [], // For filtered products
+    products: [],
+    filteredProducts: [],
+    cartProducts: [],
     loading: false,
     error: null,
+    total: 0,
   },
   reducers: {
     Clothes: (state) => {
@@ -54,6 +56,23 @@ const productSlice = createSlice({
     resetFilters: (state) => {
       state.filteredProducts = state.products.products; // Reset filters
     },
+    getCartData: (state, action) => {
+      state.cartProducts.push(action.payload);
+      console.log(state.cartProducts);
+      console.log("inside getCartData slice");
+    },
+    totalCartPrice: (state) => {
+      state.total =
+        state.cartProducts.length > 0
+          ? state.cartProducts.reduce((sum, item) => sum + item.price, 0)
+          : 0;
+    },
+    removeCartPrice: (state, action) => {
+      state.cartProducts = state.cartProducts.filter(
+        (item) => item.uid !== action.payload
+      );
+      console.log("Inside remove cart price");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -72,7 +91,16 @@ const productSlice = createSlice({
   },
 });
 
-export const { Clothes, Furniture, Beauty, Shoes, resetFilters, Groceries } =
-  productSlice.actions;
+export const {
+  Clothes,
+  Furniture,
+  Beauty,
+  Shoes,
+  resetFilters,
+  Groceries,
+  getCartData,
+  totalCartPrice,
+  removeCartPrice,
+} = productSlice.actions;
 
 export default productSlice.reducer;

@@ -19,16 +19,19 @@ import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import FireBaseProvider from "./context/UserContext.jsx";
 import Profile from "./components/Profile.jsx";
-// import UserDetailsProvider from "./context/UserDetailsContext.jsx";
+import Order from "./components/Order.jsx";
+import Wishlist from "./components/Wishlist.jsx";
+import Cart from "./components/Cart.jsx";
 
-// Define the router
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Pagelayout />}>
       <Route index element={<Home />} />
       <Route path="/products/:id" element={<ViewProduct />} />
       <Route path="/login" element={<SignIn />} />
-      {/* <Route path="/clothes" element={<SignIn />} /> */}
+      <Route path="/order" element={<Order />} />
+      <Route path="/wishlist" element={<Wishlist />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/profile" element={<Profile />} />
     </Route>
@@ -37,16 +40,12 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <BrowserRouter> */}
     <FireBaseProvider>
-      {/* <UserDetailsProvider> */}
       <ThemeProvider>
         <Provider store={store}>
           <RouterProvider router={router} />
         </Provider>
       </ThemeProvider>
-      {/* </UserDetailsProvider> */}
     </FireBaseProvider>
-    {/* </BrowserRouter> */}
   </StrictMode>
 );

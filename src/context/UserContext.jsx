@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
@@ -40,7 +41,9 @@ function FireBaseProvider({ children }) {
   const signUpUserWithEmailAndPassword = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
-
+  const signInUserWithEmailAndPassword = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
   const signUpwithGoogle = () => {
     return signInWithPopup(auth, GoogleProvider);
   };
@@ -66,6 +69,7 @@ function FireBaseProvider({ children }) {
       value={{
         user,
         signUpUserWithEmailAndPassword,
+        signInUserWithEmailAndPassword,
         signUpwithGoogle,
         signUpwithGithub,
         isLoggedIn,
