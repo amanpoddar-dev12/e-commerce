@@ -1,6 +1,6 @@
 import { CgLogIn } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
-import { FireBaseContext } from "../context/UserContext";
+import { FireBaseContext } from "../context/authentication/UserContext";
 import { useContext, useEffect, useState } from "react";
 // import { UserDetail } from "../context/UserDetailsContext";
 function SignIn() {

@@ -11,7 +11,7 @@ import UseCurrency from "../hooks/UseCurrency";
 function ProductDetails({ src, price, title, uid, description }) {
   const dispatch = useDispatch();
   function handleCartItems() {
-    console.log("inside product details");
+    console.log("Inside product details");
     dispatch(getCartData({ src, price, title, uid, description }));
   }
   return (

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FireBaseContext } from "../context/UserContext";
+import { FireBaseContext } from "../context/authentication/UserContext";
 
 function Profile() {
   const { user } = useContext(FireBaseContext);

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import { enableMapSet } from "immer";
+enableMapSet();
 export const fetchProductData = createAsyncThunk(
   "products/fetchProductData",
   async () => {
@@ -17,6 +18,7 @@ const productSlice = createSlice({
     loading: false,
     error: null,
     total: 0,
+    wishlistProducts: [],
   },
   reducers: {
     Clothes: (state) => {
@@ -67,11 +69,22 @@ const productSlice = createSlice({
           ? state.cartProducts.reduce((sum, item) => sum + item.price, 0)
           : 0;
     },
-    removeCartPrice: (state, action) => {
-      state.cartProducts = state.cartProducts.filter(
-        (item) => item.uid !== action.payload
+    removeCartProduct: (state, action) => {
+      console.log(state.cartProducts);
+      state.cartProducts = state.cartProducts.filter((item) => {
+        console.log("Current item uid:", item.uid);
+        return item.uid !== action.payload; // action.payload will be the uid passed from dispatch
+      });
+      console.log("Updated cart products:", state.cartProducts);
+    },
+    UpdateWishListProduct: (state, action) => {
+      console.log("inside update wishlist");
+      const newProduct = action.payload;
+      const updatedList = [...state.wishlistProducts, newProduct];
+      state.wishlistProducts = updatedList.filter(
+        (product, index, self) =>
+          index === self.findIndex((p) => p.uid === product.uid)
       );
-      console.log("Inside remove cart price");
     },
   },
   extraReducers: (builder) => {
@@ -100,7 +113,8 @@ export const {
   Groceries,
   getCartData,
   totalCartPrice,
-  removeCartPrice,
+  removeCartProduct,
+  UpdateWishListProduct,
 } = productSlice.actions;
 
 export default productSlice.reducer;

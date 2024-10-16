@@ -1,8 +1,8 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import CartItem from "./CartItem";
-import OrderSummary from "./OrderSummary";
+import CartItem from "../components/CartItem";
+import OrderSummary from "../components/OrderSummary";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 function EmptyCart() {
@@ -40,6 +40,7 @@ export default function Cart() {
               title={item.title}
               src={item.src}
               item={item.uid}
+              uid={item.uid}
               key={item.uid}
             />
           ))

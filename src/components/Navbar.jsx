@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import UserContext from "../themeContext/ThemeContext";
+import UserContext from "../context/themeContext/ThemeContext";
 import {
   Disclosure,
   Menu,
@@ -11,7 +11,7 @@ import { CiLight, CiDark } from "react-icons/ci";
 import Search from "./Search";
 import Filter from "./Filter";
 import { Link } from "react-router-dom";
-import { FireBaseContext } from "../context/UserContext";
+import { FireBaseContext } from "../context/authentication/UserContext";
 import { CiSettings } from "react-icons/ci";
 export default function Navbar() {
   const { toggleDarkMode, darkMode } = useContext(UserContext);

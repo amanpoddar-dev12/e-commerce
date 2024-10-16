@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ProductItem from "../components/ProductItem";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductData } from "../Features/productSlice";
 import ProductLoader from "../components/ProductLoader";
-import { FireBaseContext } from "../context/UserContext";
+import { FireBaseContext } from "../context/authentication/UserContext";
 function Home() {
   const dispatch = useDispatch();
   const { products, loading, error, filteredProducts } = useSelector(
@@ -20,7 +20,7 @@ function Home() {
   }, [filteredProducts]);
   if (loading) {
     return (
-      <div className="flex flex-wrap dark:bg-slate-900 bg-white md:gap-3 gap-3 ml-[21px] md:ml-[140px]">
+      <div className="flex flex-wrap mt-10  dark:bg-slate-900 bg-white md:gap-3 gap-3 ml-[21px] md:ml-[140px]">
         <ProductLoader />
         <ProductLoader />
         <ProductLoader />
@@ -48,7 +48,7 @@ function Home() {
             />
           ))
         ) : filteredProducts?.length === 0 ? (
-          <h1 className="text-white text-5xl text-center">
+          <h1 className="text-white text-5xl text-center ">
             No product avaliable
           </h1>
         ) : (

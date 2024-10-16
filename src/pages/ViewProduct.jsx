@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 // import ProductItem from "./ProductItem";
 import { useParams } from "react-router-dom";
-import ProductLoader from "./ProductLoader";
+import ProductLoader from "../components/ProductLoader";
 import ProductDetails from "./ProductDetails";
-import { FireBaseContext } from "../context/UserContext";
+import { FireBaseContext } from "../context/authentication/UserContext";
 
 function ViewProduct() {
   const [item, setItem] = useState(null);
