@@ -116,5 +116,5 @@ export const {
   removeCartProduct,
   UpdateWishListProduct,
 } = productSlice.actions;
-
+// export productSlice.selectors
 export default productSlice.reducer;
