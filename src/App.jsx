@@ -1,13 +1,7 @@
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import { Outlet } from "react-router-dom";
+import Pagelayout from "./Pagelayout";
+
 function App() {
-  return (
-    <div className="dark:bg-slate-900">
-      <Home />
-    </div>
-  );
+  return <Pagelayout />;
 }
 
 export default App;

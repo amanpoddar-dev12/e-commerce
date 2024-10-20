@@ -1,9 +1,27 @@
 import { Link } from "react-router-dom";
+import WishlistHeart from "./WishlistHeart";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { UpdateWishListProduct } from "../Features/productSlice";
 
 function ProductItem({ src, price, title, uid }) {
   // console.log(uid);
+  const dispatch = useDispatch();
+  const [isWishlist, setIsWishlist] = useState(false);
+  function handleWishList() {
+    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    setIsWishlist(!isWishlist);
+  }
   return (
     <div className="md:w-[300px] w-[180px] mt-10 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <button onClick={handleWishList} className="mt-3 md:ml-64 ml-36">
+        <WishlistHeart
+          height={7}
+          width={7}
+          isWishlist={isWishlist}
+          color={"white"}
+        />
+      </button>
       <a href="#">
         <img
           className="p-5 md:p-8 rounded-t-lg "
@@ -11,7 +29,7 @@ function ProductItem({ src, price, title, uid }) {
           alt="product image"
         />
       </a>
-      {/* <ImageLoader /> */}
+
       <div className="px-5 pb-5">
         <a href="#">
           <h5 className="text-l font-semibold tracking-tight text-gray-900 dark:text-white">

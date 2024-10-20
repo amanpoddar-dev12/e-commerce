@@ -6,13 +6,21 @@ import { GiMoneyStack } from "react-icons/gi";
 import StarRating from "custom-star-rating/dist/CustomStarRating";
 import { useDispatch } from "react-redux";
 import { getCartData } from "../Features/productSlice";
+import { UpdateWishListProduct } from "../Features/productSlice";
 import UseCurrency from "../hooks/UseCurrency";
+import { useState } from "react";
+import WishlistHeart from "../components/WishlistHeart";
 // import UseCurrency from "../hooks/UseCurrency";
 function ProductDetails({ src, price, title, uid, description }) {
+  const [isWishlist, setIsWishlist] = useState(false);
   const dispatch = useDispatch();
   function handleCartItems() {
     console.log("Inside product details");
     dispatch(getCartData({ src, price, title, uid, description }));
+  }
+  function handleWishList() {
+    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    setIsWishlist(!isWishlist);
   }
   return (
     <div className="flex  flex-col items-center bg-white border  border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -26,25 +34,24 @@ function ProductDetails({ src, price, title, uid, description }) {
           {title}
         </h5>
         <div className="flex flex-row gap-5 mb-7 mt-3 p-0 ml-1 dark:text-white text-black">
-          <p className="bg-blue-500 rounded-md text-blue-300 font-bold p-1">
+          <p className="bg-blue-500 rounded-md text-blue-300 font-bold px-2 py-1">
             Up to 35% off
           </p>
           <div className="flex flex-row md:gap-2 md:ml-20 gap-5 ml-28">
             <span>
-              <button>
-                <FaRegEye className="h-7 w-7 " />
-              </button>
+              <a src={src}>
+                <FaRegEye className="h-7 w-7 hover:text-blue-500 hover:cursor-pointer" />
+              </a>
             </span>
             <span>
-              <button>
-                <CiHeart className="h-7 w-7  " />
+              <button onClick={handleWishList}>
+                <WishlistHeart isWishlist={isWishlist} height={8} width={8} />
               </button>
             </span>
           </div>
         </div>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
           <StarRating
-            // key={Date.now()}
             maxRating={5}
             defaultRating={Math.round(Math.random(1, 6) * 5)}
             size={20}
