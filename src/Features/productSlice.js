@@ -1,13 +1,20 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { enableMapSet } from "immer";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 enableMapSet();
-export const fetchProductData = createAsyncThunk(
-  "products/fetchProductData",
-  async () => {
-    const response = await fetch("https://dummyjson.com/products");
-    return response.json();
-  }
-);
+
+export const createProductsApi = createApi({
+  reducerPath: "productsApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/" }),
+  endpoints: (builder) => ({
+    getProducts: builder.query({
+      query: () => "products",
+    }),
+    getProductsById: builder.query({
+      query: (id) => `products/${id}`,
+    }),
+  }),
+});
 
 const productSlice = createSlice({
   name: "product",
@@ -21,24 +28,29 @@ const productSlice = createSlice({
     wishlistProducts: [],
   },
   reducers: {
+    getProductsData: (state, action) => {
+      state.products = action.payload;
+      console.log(state.products);
+    },
+
     Clothes: (state) => {
-      state.filteredProducts = state.products.products.filter(
+      state.filteredProducts = state.products.filter(
         (product) => product.category === "Clothes"
       );
     },
     Groceries: (state) => {
-      state.filteredProducts = state.products.products.filter(
+      state.filteredProducts = state.products.filter(
         (product) => product.category === "groceries"
       );
     },
 
     Furniture: (state) => {
-      state.filteredProducts = state.products.products.filter(
+      state.filteredProducts = state.products.filter(
         (product) => product.category === "furniture"
       );
     },
     Beauty: (state) => {
-      state.filteredProducts = state.products.products.filter(
+      state.filteredProducts = state.products.filter(
         (product) => product.category === "beauty"
       );
       console.log("Inside beauty slice ");
@@ -46,17 +58,17 @@ const productSlice = createSlice({
       console.log(state.filteredProducts);
     },
     Shoes: (state) => {
-      state.filteredProducts = state.products.products.filter(
+      state.filteredProducts = state.products.filter(
         (product) => product.category === "shoes"
       );
     },
     Fragrances: (state) => {
-      state.filteredProducts = state.products.products.filter(
+      state.filteredProducts = state.products.filter(
         (product) => product.category === "fragrances"
       );
     },
     resetFilters: (state) => {
-      state.filteredProducts = state.products.products; // Reset filters
+      state.filteredProducts = state.products; // Reset filters
     },
     getCartData: (state, action) => {
       state.cartProducts.push(action.payload);
@@ -87,24 +99,10 @@ const productSlice = createSlice({
       );
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchProductData.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchProductData.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
-        state.filteredProducts = action.payload;
-      })
-      .addCase(fetchProductData.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
-  },
 });
 
 export const {
+  getProductsData,
   Clothes,
   Furniture,
   Beauty,
@@ -116,5 +114,8 @@ export const {
   removeCartProduct,
   UpdateWishListProduct,
 } = productSlice.actions;
-// export const  wishlistProducts ;
+
+export const { useGetProductsQuery, useGetProductsByIdQuery } =
+  createProductsApi;
+
 export default productSlice.reducer;
