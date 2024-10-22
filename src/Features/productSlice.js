@@ -70,10 +70,31 @@ const productSlice = createSlice({
     resetFilters: (state) => {
       state.filteredProducts = state.products; // Reset filters
     },
-    getCartData: (state, action) => {
-      state.cartProducts.push(action.payload);
-      console.log(state.cartProducts);
-      console.log("inside getCartData slice");
+    addCart: (state, action) => {
+      const newProduct = action.payload; // Get the new product from the action payload
+      const existingProductIndex = state.cartProducts.findIndex(
+        (product) => product.uid === newProduct.uid // Check if the product already exists by UID
+      );
+
+      if (existingProductIndex !== -1) {
+        // If product exists
+        const existingProduct = state.cartProducts[existingProductIndex];
+        if (
+          newProduct.quantity > existingProduct.quantity ||
+          newProduct.quantity < existingProduct.quantity
+        ) {
+          // If new quantity is greater than the existing one, update it
+          state.cartProducts[existingProductIndex] = {
+            ...existingProduct,
+            quantity: newProduct.quantity,
+          };
+        }
+      } else {
+        // If product doesn't exist in cart, add it
+        state.cartProducts.push(newProduct);
+      }
+
+      console.log("inside addCart slice");
     },
     totalCartPrice: (state) => {
       state.total =
@@ -98,6 +119,22 @@ const productSlice = createSlice({
           index === self.findIndex((p) => p.uid === product.uid)
       );
     },
+    RemoveWishListProducts: (state, action) => {
+      state.wishlistProducts = state.wishlistProducts.filter(
+        (product) => product.uid !== action.payload
+      );
+    },
+    TrackWishListItem: (state, action) => {
+      state.products = state.products.map((product) =>
+        product.id === action.payload
+          ? { ...product, wishlist: !product.wishlist }
+          : product
+      );
+      console.log(action.payload);
+    },
+    updateTotal: (state, action) => {
+      state.total += action.payload;
+    },
   },
 });
 
@@ -109,10 +146,16 @@ export const {
   Shoes,
   resetFilters,
   Groceries,
-  getCartData,
+  addCart,
   totalCartPrice,
   removeCartProduct,
   UpdateWishListProduct,
+  RemoveWishListProducts,
+  cartProducts,
+  wishlistProducts,
+  TrackWishListItem,
+  total,
+  updateTotal,
 } = productSlice.actions;
 
 export const { useGetProductsQuery, useGetProductsByIdQuery } =

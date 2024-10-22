@@ -10,7 +10,7 @@ function Wishlist() {
 
   console.log(wishlistProducts);
   return (
-    <div className=" m-10 dark:m-10 flex flex-col gap-4  dark:bg-slate-900 bg-white">
+    <div className=" m-10 dark:m-10  flex flex-col gap-4   dark:bg-slate-900 bg-white">
       {wishlistProducts && wishlistProducts.length > 0 ? (
         wishlistProducts.map((product) => (
           <WishlistItem

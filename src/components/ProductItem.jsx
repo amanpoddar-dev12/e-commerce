@@ -2,14 +2,22 @@ import { Link } from "react-router-dom";
 import WishlistHeart from "./WishlistHeart";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { UpdateWishListProduct } from "../Features/productSlice";
+import {
+  TrackWishListItem,
+  UpdateWishListProduct,
+} from "../Features/productSlice";
+// import React from 'react';
 
-function ProductItem({ src, price, title, uid }) {
+// export default LazyImageComponent;
+function ProductItem({ src, price, title, uid, wishlist }) {
   // console.log(uid);
+  // console.log(wishlist);
   const dispatch = useDispatch();
   const [isWishlist, setIsWishlist] = useState(false);
   function handleWishList() {
     dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    console.log(uid);
+    // dispatch(TrackWishListItem(uid));
     setIsWishlist(!isWishlist);
   }
   return (
