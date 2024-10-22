@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import {
   addCartQuantity,
   removeCartProduct,
-  updateTotal,
   UpdateWishListProduct,
 } from "../Features/productSlice";
 import WishlistHeart from "./WishlistHeart";
@@ -17,23 +16,26 @@ function CartItem({ price, title, src, uid, defaultQuantity }) {
   const [isWishlist, setIsWishlist] = useState(false);
   console.log("inside cartItem");
   console.log(uid, src, price);
-  useEffect(() => {}, [quantity]);
+  // useEffect(() => {}, [quantity]);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addCartQuantity({ uid, quantity }));
+  }, [quantity, dispatch, uid]);
   function handleDelteItem(e) {
     e.preventDefault();
     dispatch(removeCartProduct(uid));
   }
   function handleAddToWishList() {
     setIsWishlist(!isWishlist);
-    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    dispatch(
+      UpdateWishListProduct({ price, title, src, uid, quantity: quantity })
+    );
   }
-  // useEffect(() => {
-  //   useDispatch(addCartQuantity({ uid, quantity }));
-  // }, [quantity, uid]);
 
   function handleAddQuntity() {
     if (quantity >= 0) setQuantity(quantity + 1);
   }
+
   function handleSubQuntity() {
     if (quantity > 1) setQuantity(quantity - 1);
   }

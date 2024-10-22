@@ -16,10 +16,10 @@ function ProductDetails({ src, price, title, uid, description }) {
   const dispatch = useDispatch();
   function handleCartItems() {
     console.log("Inside product details");
-    dispatch(addCart({ src, price, title, uid, description }));
+    dispatch(addCart({ src, price, title, uid, quantity: 1 }));
   }
   function handleWishList() {
-    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    dispatch(UpdateWishListProduct({ price, title, src, uid, quantity: 1 }));
     setIsWishlist(!isWishlist);
   }
   return (

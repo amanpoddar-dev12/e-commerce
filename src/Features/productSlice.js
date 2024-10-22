@@ -97,16 +97,19 @@ const productSlice = createSlice({
       console.log("inside addCart slice");
     },
     addCartQuantity: (state, action) => {
-      state.cartProducts = state.cartProducts.filter((product) =>
-        product.uid === action.payload
-          ? { ...product, quantity: action.payload }
+      state.cartProducts = state.cartProducts.map((product) =>
+        product.uid === action.payload.uid
+          ? { ...product, quantity: action.payload.quantity }
           : product
       );
     },
     totalCartPrice: (state) => {
       state.total =
         state.cartProducts.length > 0
-          ? state.cartProducts.reduce((sum, item) => sum + item.price, 0)
+          ? state.cartProducts.reduce(
+              (sum, item) => sum + item.price * item.quantity,
+              0
+            )
           : 0;
     },
     removeCartProduct: (state, action) => {
@@ -124,6 +127,13 @@ const productSlice = createSlice({
       state.wishlistProducts = updatedList.filter(
         (product, index, self) =>
           index === self.findIndex((p) => p.uid === product.uid)
+      );
+    },
+    UpdateWishListProductQuantity: (state, action) => {
+      state.wishlistProducts = state.wishlistProducts.map((product) =>
+        product.uid === action.payload.uid
+          ? { ...product, quantity: action.payload.quantity }
+          : product
       );
     },
     RemoveWishListProducts: (state, action) => {
@@ -158,6 +168,7 @@ export const {
   removeCartProduct,
   UpdateWishListProduct,
   RemoveWishListProducts,
+  UpdateWishListProductQuantity,
   cartProducts,
   addCartQuantity,
   wishlistProducts,
