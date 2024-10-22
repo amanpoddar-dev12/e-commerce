@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import UseCurrency from "../hooks/UseCurrency";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   addCart,
   RemoveWishListProducts,
-  updateTotal,
   UpdateWishListProductQuantity,
 } from "../Features/productSlice";
+import { Link } from "react-router-dom";
 
 function WishlistItem({ price, title, src, uid, wishlistItemQuantity }) {
   const [quantity, setQuantity] = useState(() =>
     wishlistItemQuantity ? wishlistItemQuantity : 1
   );
-  useEffect(() => {}, [quantity]);
+  const [isEnableCart, setIsEnableCart] = useState(false);
+  useEffect(() => {
+    setIsEnableCart(false);
+  }, [quantity]);
   const dispatch = useDispatch();
 
   function handleDelteItem(e) {
@@ -30,7 +33,18 @@ function WishlistItem({ price, title, src, uid, wishlistItemQuantity }) {
   function handleAddCart() {
     dispatch(addCart({ price, title, src, uid, quantity }));
     dispatch(UpdateWishListProductQuantity({ uid, quantity }));
-    dispatch(updateTotal(UseCurrency(price * quantity)));
+    setIsEnableCart(true);
+  }
+  function CartPath() {
+    return (
+      <Link
+        type="button"
+        className="inline-flex items-center text-sm font-medium  dark:text-black   hover:underline bg-slate-100 dark:bg-white  px-5 py-1 rounded-md"
+        to={"/cart"}
+      >
+        {`Go to Cart`}
+      </Link>
+    );
   }
   return (
     <div className="rounded-lg border  border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
@@ -116,14 +130,17 @@ function WishlistItem({ price, title, src, uid, wishlistItemQuantity }) {
           </a>
 
           <div className="flex items-center gap-4">
-            <button
-              type="button"
-              className="inline-flex items-center text-sm font-medium dark:text-white text-black hover:underline bg-blue-400 px-5 py-1 rounded-md"
-              onClick={handleAddCart}
-            >
-              Add to Cart
-            </button>
-
+            {!isEnableCart ? (
+              <button
+                type="button"
+                className="inline-flex items-center text-sm font-medium dark:text-white text-black hover:underline bg-blue-400 px-5 py-1 rounded-md"
+                onClick={handleAddCart}
+              >
+                {`Add to Cart`}
+              </button>
+            ) : (
+              <CartPath />
+            )}
             <button
               type="button"
               className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"

@@ -149,9 +149,6 @@ const productSlice = createSlice({
       );
       console.log(action.payload);
     },
-    updateTotal: (state, action) => {
-      state.total += action.payload;
-    },
   },
 });
 
@@ -174,7 +171,6 @@ export const {
   wishlistProducts,
   TrackWishListItem,
   total,
-  updateTotal,
 } = productSlice.actions;
 
 export const { useGetProductsQuery, useGetProductsByIdQuery } =

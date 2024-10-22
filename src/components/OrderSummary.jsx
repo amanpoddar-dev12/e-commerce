@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { totalCartPrice } from "../Features/productSlice";
@@ -10,6 +10,7 @@ function OrderSummary() {
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Get the total from Redux state
+
   const { total } = useSelector((state) => state.product);
 
   // Dispatch the action to calculate total price when component mounts
@@ -82,7 +83,7 @@ function OrderSummary() {
               Total
             </dt>
             <dd className="text-base font-bold text-gray-900 dark:text-white">
-              {`₨.${grandTotal}`}
+              {`₨.${Math.round(grandTotal)}`}
             </dd>
           </dl>
         </div>
