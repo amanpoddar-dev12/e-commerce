@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import UseCurrency from "../hooks/UseCurrency";
 import { useDispatch } from "react-redux";
 import {
+  addCartQuantity,
   removeCartProduct,
   updateTotal,
   UpdateWishListProduct,
@@ -26,11 +27,10 @@ function CartItem({ price, title, src, uid, defaultQuantity }) {
     setIsWishlist(!isWishlist);
     dispatch(UpdateWishListProduct({ price, title, src, uid }));
   }
-  useEffect(() => {
-    console.log(isWishlist);
-    // dispatch(updateTotal(UseCurrency(price * quantity)));
-  });
-  // dispatch(updateTotal(UseCurrency(price * quantity)));
+  // useEffect(() => {
+  //   useDispatch(addCartQuantity({ uid, quantity }));
+  // }, [quantity, uid]);
+
   function handleAddQuntity() {
     if (quantity >= 0) setQuantity(quantity + 1);
   }

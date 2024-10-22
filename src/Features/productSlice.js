@@ -96,6 +96,13 @@ const productSlice = createSlice({
 
       console.log("inside addCart slice");
     },
+    addCartQuantity: (state, action) => {
+      state.cartProducts = state.cartProducts.filter((product) =>
+        product.uid === action.payload
+          ? { ...product, quantity: action.payload }
+          : product
+      );
+    },
     totalCartPrice: (state) => {
       state.total =
         state.cartProducts.length > 0
@@ -106,7 +113,7 @@ const productSlice = createSlice({
       console.log(state.cartProducts);
       state.cartProducts = state.cartProducts.filter((item) => {
         console.log("Current item uid:", item.uid);
-        return item.uid !== action.payload; // action.payload will be the uid passed from dispatch
+        return item.uid !== action.payload;
       });
       console.log("Updated cart products:", state.cartProducts);
     },
@@ -152,6 +159,7 @@ export const {
   UpdateWishListProduct,
   RemoveWishListProducts,
   cartProducts,
+  addCartQuantity,
   wishlistProducts,
   TrackWishListItem,
   total,
