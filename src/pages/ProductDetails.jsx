@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { FaRegEye } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
+// import { CiHeart } from "react-icons/ci";
 import { FaShuttleVan } from "react-icons/fa";
 import { GiMoneyStack } from "react-icons/gi";
 import StarRating from "custom-star-rating/dist/CustomStarRating";
 import { useDispatch } from "react-redux";
-import { getCartData } from "../Features/productSlice";
+import { addCart } from "../Features/productSlice";
 import { UpdateWishListProduct } from "../Features/productSlice";
 import UseCurrency from "../hooks/UseCurrency";
 import { useState } from "react";
@@ -16,7 +16,7 @@ function ProductDetails({ src, price, title, uid, description }) {
   const dispatch = useDispatch();
   function handleCartItems() {
     console.log("Inside product details");
-    dispatch(getCartData({ src, price, title, uid, description }));
+    dispatch(addCart({ src, price, title, uid, description }));
   }
   function handleWishList() {
     dispatch(UpdateWishListProduct({ price, title, src, uid }));
@@ -39,7 +39,7 @@ function ProductDetails({ src, price, title, uid, description }) {
           </p>
           <div className="flex flex-row md:gap-2 md:ml-20 gap-5 ml-28">
             <span>
-              <a src={src}>
+              <a href={src} target="_blank">
                 <FaRegEye className="h-7 w-7 hover:text-blue-500 hover:cursor-pointer" />
               </a>
             </span>
