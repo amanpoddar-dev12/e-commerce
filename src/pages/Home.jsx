@@ -39,7 +39,7 @@ function Home() {
   }
   return (
     <div className="min-h-screen dark:bg-slate-900 bg-white">
-      <div className="flex flex-wrap dark:bg-slate-900 bg-white md:gap-3 gap-3 ml-[21px] md:ml-[140px]">
+      <div className="flex flex-wrap  dark:bg-slate-900 bg-white md:gap-3 gap-3 ml-[21px] md:ml-[140px]">
         {filteredProducts?.length > 0
           ? filteredProducts.map((product) => (
               <ProductItem
