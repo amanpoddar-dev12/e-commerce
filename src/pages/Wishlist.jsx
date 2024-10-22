@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import WishlistItem from "../components/WishListItem";
 import { EmptyCart } from "./Cart";
 function Wishlist() {
-  // const wishlistProducts = useSelector((state) => state.wishlistProducts);
   const wishlistProducts = useSelector(
     (state) => state.product.wishlistProducts
   );
@@ -19,6 +18,7 @@ function Wishlist() {
             title={product.title}
             uid={product.uid}
             price={product.price}
+            wishlistItemQuantity={product.quantity}
           />
         ))
       ) : (

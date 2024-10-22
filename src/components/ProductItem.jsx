@@ -15,7 +15,7 @@ function ProductItem({ src, price, title, uid, wishlist }) {
   const dispatch = useDispatch();
   const [isWishlist, setIsWishlist] = useState(false);
   function handleWishList() {
-    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    dispatch(UpdateWishListProduct({ price, title, src, uid, quantity: 1 }));
     console.log(uid);
     // dispatch(TrackWishListItem(uid));
     setIsWishlist(!isWishlist);
