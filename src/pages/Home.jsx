@@ -58,7 +58,7 @@ function Home() {
                 price={product.price}
                 src={cleanURL(product.images[0])}
                 rating={products.rating}
-                wishlist={product.wishlist}
+                defaultWishlist={product.wishlist}
               />
             ))}
       </div>
