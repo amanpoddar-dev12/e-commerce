@@ -71,6 +71,7 @@ const router = createBrowserRouter(
         }
       />
       <Route path="/signup" element={<SignUp />} />
+
       <Route
         path="/profile"
         element={
