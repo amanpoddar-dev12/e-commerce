@@ -30,11 +30,8 @@ function ProductItem({ src, price, title, uid, defaultWishlist }) {
     dispatch(
       addCart({ src, price, title, uid, quantity: 1, wishlist: isWishlist })
     );
-    // setTimeout(() => {
     setOnCart(true);
     console.log("hii inside settimeout");
-    // }, 500);
-    // setOnCart(false);
     setTimeout(() => {
       setOnCart(false);
     }, 300);

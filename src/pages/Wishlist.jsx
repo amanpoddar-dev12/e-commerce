@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import WishlistItem from "../components/WishListItem";
-import { EmptyCart } from "./Cart";
+import { EmptyCart } from "../components/EmptyCart";
+
 function Wishlist() {
   const wishlistProducts = useSelector(
     (state) => state.product.wishlistProducts
   );
-  // const { total } = useSelector((state) => state.product);
 
   console.log(wishlistProducts);
   return (

@@ -26,6 +26,8 @@ const productSlice = createSlice({
     error: null,
     total: 0,
     wishlistProducts: [],
+    orderItems: [],
+    orderTotal: 0,
   },
   reducers: {
     getProductsData: (state, action) => {
@@ -126,6 +128,15 @@ const productSlice = createSlice({
             )
           : 0;
     },
+    totalOrderPrice: (state) => {
+      state.orderTotal =
+        state.orderItems.length > 0
+          ? state.orderItems.reduce(
+              (sum, item) => sum + item.price * item.quantity,
+              0
+            )
+          : 0;
+    },
     removeCartProduct: (state, action) => {
       console.log(state.cartProducts);
       state.cartProducts = state.cartProducts.filter((item) => {
@@ -133,6 +144,15 @@ const productSlice = createSlice({
         return item.uid !== action.payload;
       });
       console.log("Updated cart products:", state.cartProducts);
+    },
+    resetCart: (state) => {
+      state.cartProducts = [];
+    },
+    resetCartTotal: (state) => {
+      state.total = 0;
+    },
+    setOrder: (state) => {
+      state.orderItems = state.cartProducts;
     },
     UpdateWishListProduct: (state, action) => {
       console.log("inside update wishlist");
@@ -177,8 +197,14 @@ export const {
   addCart,
   updateProductsWishlist,
   totalCartPrice,
+  totalOrderPrice,
   updateCartWishlist,
   removeCartProduct,
+  resetCart,
+  setOrder,
+  orderTotal,
+  resetCartTotal,
+
   UpdateWishListProduct,
   RemoveWishListProducts,
   UpdateWishListProductQuantity,
