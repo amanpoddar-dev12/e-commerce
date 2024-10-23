@@ -71,7 +71,7 @@ const router = createBrowserRouter(
         }
       />
       <Route path="/signup" element={<SignUp />} />
-
+      {/* <Route path="/signin" element={<SignIn />} /> */}
       <Route
         path="/profile"
         element={

@@ -162,10 +162,10 @@ function SignIn() {
                 </button>
                 <Link
                   to="/signup"
-                  className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  className="mt-5 tracking-wide font-semibold bg-indigo-900 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                 >
                   <CgLogIn className="w-6 h-6 -ml-2" />
-                  <span className="ml-3">Login</span>
+                  <span className="ml-3">Create Account</span>
                 </Link>
                 <p className="mt-6 text-xs text-gray-600 text-center">
                   I agree to abide by templatana&apos;s

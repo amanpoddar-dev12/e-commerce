@@ -126,7 +126,7 @@ export default function Navbar() {
                 {!isLoggedIn ? (
                   <MenuItem>
                     <Link
-                      to={"/signup"}
+                      to={"/login"}
                       className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
                     >
                       <div className="flex flex-row gap-2">
