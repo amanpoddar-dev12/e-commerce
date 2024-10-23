@@ -73,7 +73,23 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div>
+            <Link
+              to={"/cart"}
+              className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
+            >
+              <div className="flex flex-row ">
+                <Item
+                  // name={"Cart"}
+                  src={
+                    "https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg"
+                  }
+                />
+                <span>{`(${cartProducts.length})`}</span>
+              </div>
+            </Link>
+          </div>
+          <div className="flex items-center ">
             <Menu as="div" className="relative">
               <MenuButton className="relative flex rounded-full dark:bg-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="sr-only">Open user menu</span>

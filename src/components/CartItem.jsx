@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   addCartQuantity,
   removeCartProduct,
+  totalCartPrice,
   UpdateWishListProduct,
 } from "../Features/productSlice";
 import WishlistHeart from "./WishlistHeart";
@@ -20,10 +21,12 @@ function CartItem({ price, title, src, uid, defaultQuantity }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addCartQuantity({ uid, quantity }));
+    dispatch(totalCartPrice());
   }, [quantity, dispatch, uid]);
   function handleDelteItem(e) {
     e.preventDefault();
     dispatch(removeCartProduct(uid));
+    dispatch(totalCartPrice());
   }
   function handleAddToWishList() {
     setIsWishlist(!isWishlist);
