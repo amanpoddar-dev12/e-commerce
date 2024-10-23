@@ -142,7 +142,9 @@ function SignIn() {
                 <div className="md:ml-44 ml-36">
                   {isloading ? <Loader /> : ""}
                 </div>
-                <p className="text-white">{error ? error : ""}</p>
+                <p className="dark:text-white text-black">
+                  {error ? error : ""}
+                </p>
                 <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                   Or sign In with e-mail
                 </div>
