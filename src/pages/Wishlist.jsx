@@ -1,16 +1,15 @@
 import { useSelector } from "react-redux";
 import WishlistItem from "../components/WishListItem";
-import { EmptyCart } from "./Cart";
+import { EmptyCart } from "../components/EmptyCart";
+
 function Wishlist() {
-  // const wishlistProducts = useSelector((state) => state.wishlistProducts);
   const wishlistProducts = useSelector(
     (state) => state.product.wishlistProducts
   );
-  // const { total } = useSelector((state) => state.product);
 
   console.log(wishlistProducts);
   return (
-    <div className=" m-10 dark:m-10 flex flex-col gap-4  dark:bg-slate-900 bg-white">
+    <div className=" m-10 dark:m-10  flex flex-col gap-4   dark:bg-slate-900 bg-white">
       {wishlistProducts && wishlistProducts.length > 0 ? (
         wishlistProducts.map((product) => (
           <WishlistItem
@@ -19,6 +18,7 @@ function Wishlist() {
             title={product.title}
             uid={product.uid}
             price={product.price}
+            wishlistItemQuantity={product.quantity}
           />
         ))
       ) : (

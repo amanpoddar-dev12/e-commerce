@@ -2,7 +2,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { IoFilter } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import {
-  Clothes,
   Beauty,
   Furniture,
   resetFilters,

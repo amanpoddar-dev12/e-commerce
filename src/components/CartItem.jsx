@@ -2,32 +2,55 @@ import React, { useEffect, useState } from "react";
 import UseCurrency from "../hooks/UseCurrency";
 import { useDispatch } from "react-redux";
 import {
+  addCart,
+  addCartQuantity,
   removeCartProduct,
+  RemoveWishListProducts,
+  totalCartPrice,
+  updateCartWishlist,
   UpdateWishListProduct,
 } from "../Features/productSlice";
 import WishlistHeart from "./WishlistHeart";
 
-function CartItem({ price, title, src, uid }) {
-  const [quantity, setQuantity] = useState(1);
-  const [isWishlist, setIsWishlist] = useState(false);
+function CartItem({ price, title, src, uid, defaultQuantity, wishlist }) {
+  console.log(defaultQuantity);
+  const [quantity, setQuantity] = useState(() =>
+    defaultQuantity ? defaultQuantity : 1
+  );
+  const [isWishlist, setIsWishlist] = useState(() =>
+    wishlist ? wishlist : false
+  );
   console.log("inside cartItem");
   console.log(uid, src, price);
-  useEffect(() => {}, [quantity]);
+  // useEffect(() => {}, [quantity]);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addCartQuantity({ uid, quantity }));
+    dispatch(totalCartPrice());
+  }, [quantity, dispatch, uid]);
+  useEffect(() => {
+    if (!isWishlist) {
+      dispatch(updateCartWishlist({ uid, wishlist: false }));
+      dispatch(RemoveWishListProducts(uid));
+    } else dispatch(updateCartWishlist({ uid, wishlist: true }));
+  }, [dispatch, isWishlist, uid]);
+
   function handleDelteItem(e) {
     e.preventDefault();
     dispatch(removeCartProduct(uid));
+    dispatch(totalCartPrice());
   }
-  function handleAddtoFav() {
+  function handleAddToWishList() {
     setIsWishlist(!isWishlist);
-    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    dispatch(
+      UpdateWishListProduct({ price, title, src, uid, quantity: quantity })
+    );
   }
-  useEffect(() => {
-    console.log(isWishlist);
-  });
+
   function handleAddQuntity() {
     if (quantity >= 0) setQuantity(quantity + 1);
   }
+
   function handleSubQuntity() {
     if (quantity > 1) setQuantity(quantity - 1);
   }
@@ -35,11 +58,7 @@ function CartItem({ price, title, src, uid }) {
     <div className="rounded-lg border  border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
       <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6  md:space-y-0">
         <a href="#" className="w-20 shrink-0 md:order-1">
-          <img
-            className="hidden h-20 w-20 dark:block"
-            src={src}
-            alt="imac image"
-          />
+          <img className="block h-20 w-20 " src={src} alt="imac image" />
         </a>
 
         <label htmlFor="counter-input" className="sr-only">
@@ -122,7 +141,7 @@ function CartItem({ price, title, src, uid }) {
             <button
               type="button"
               className="inline-flex items-center text-sm font-medium text-gray-500  hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-white"
-              onClick={handleAddtoFav}
+              onClick={handleAddToWishList}
             >
               <WishlistHeart
                 isWishlist={isWishlist}

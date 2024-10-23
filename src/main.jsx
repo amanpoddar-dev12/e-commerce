@@ -1,42 +1,85 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import ThemeProvider from "./context/themeContext/Theme.jsx";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
-
 import {
-  // BrowserRouter,
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import Pagelayout from "./Pagelayout.jsx";
-import ViewProduct from "./pages/ViewProduct.jsx";
-import SignIn from "./components/SignIn.jsx";
-import SignUp from "./components/SignUp.jsx";
 import FireBaseProvider from "./context/authentication/UserContext.jsx";
-import Profile from "./pages/Profile.jsx";
-import Order from "./pages/Order.jsx";
-import Wishlist from "./pages/Wishlist.jsx";
-import Cart from "./pages/Cart.jsx";
-
-import App from "./App.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
+
+import SignIn from "./components/SignIn.jsx";
+import SignUp from "./components/SignUp.jsx";
+import App from "./App.jsx";
+import Loader from "./components/Loader.jsx";
+
+const ViewProduct = lazy(() => import("./pages/ViewProduct.jsx"));
+const Order = lazy(() => import("./pages/Order.jsx"));
+const Home = lazy(() => import("./pages/Home.jsx"));
+const Profile = lazy(() => import("./pages/Profile.jsx"));
+const Wishlist = lazy(() => import("./pages/Wishlist.jsx"));
+const Cart = lazy(() => import("./pages/Cart.jsx"));
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index element={<Home />} />
-      <Route path="/products/:id" element={<ViewProduct />} />
+      <Route
+        index
+        element={
+          <Suspense fallback={<Loader />}>
+            <Home />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/products/:id"
+        element={
+          <Suspense fallback={<Loader />}>
+            <ViewProduct />
+          </Suspense>
+        }
+      />
       <Route path="/login" element={<SignIn />} />
-      <Route path="/order" element={<Order />} />
-      <Route path="/wishlist" element={<Wishlist />} />
-      <Route path="/cart" element={<Cart />} />
+      <Route
+        path="/order"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Order />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/wishlist"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Wishlist />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Cart />
+          </Suspense>
+        }
+      />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/profile" element={<Profile />} />
+
+      <Route
+        path="/profile"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Profile />
+          </Suspense>
+        }
+      />
     </Route>
   )
 );

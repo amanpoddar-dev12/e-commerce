@@ -4,7 +4,7 @@ function WishlistHeart({ isWishlist, height, width, color }) {
   return (
     <div>
       <svg
-        className={`me-1.5 h-${height} w-${width} text-${color}`}
+        className={`me-1.5 h-${height} w-${width} dark:text-${color} text-black`}
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill={`${isWishlist ? "red" : "none"}`}

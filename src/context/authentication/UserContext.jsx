@@ -31,13 +31,12 @@ function FireBaseProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
-      console.log(user.photoURL);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) setUser(user);
       else setUser(null);
     });
-  });
+    return () => unsubscribe();
+  }, []);
   const signUpUserWithEmailAndPassword = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -53,15 +52,13 @@ function FireBaseProvider({ children }) {
   };
 
   const logout = () => {
-    return signOut(auth);
+    return signOut(auth).then(() => {
+      setUser(null);
+    });
   };
-  //   const navigate = useNavigate();
-  //   const logout = () => {
-  //     signOut(auth).then((res) => navigate("/"));
-  //   };
+
   const isLoggedIn = user !== null;
   const cleanURL = (urlString) => {
-    // Use regex to remove unwanted characters like [ " ] and spaces
     return urlString.replace(/[\[\]" ]/g, "");
   };
   return (

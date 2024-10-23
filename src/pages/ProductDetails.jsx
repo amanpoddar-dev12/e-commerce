@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { FaRegEye } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
+// import { CiHeart } from "react-icons/ci";
 import { FaShuttleVan } from "react-icons/fa";
 import { GiMoneyStack } from "react-icons/gi";
 import StarRating from "custom-star-rating/dist/CustomStarRating";
 import { useDispatch } from "react-redux";
-import { getCartData } from "../Features/productSlice";
+import { addCart, updateCartWishlist } from "../Features/productSlice";
 import { UpdateWishListProduct } from "../Features/productSlice";
 import UseCurrency from "../hooks/UseCurrency";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WishlistHeart from "../components/WishlistHeart";
 // import UseCurrency from "../hooks/UseCurrency";
 function ProductDetails({ src, price, title, uid, description }) {
@@ -16,12 +16,18 @@ function ProductDetails({ src, price, title, uid, description }) {
   const dispatch = useDispatch();
   function handleCartItems() {
     console.log("Inside product details");
-    dispatch(getCartData({ src, price, title, uid, description }));
+    dispatch(
+      addCart({ src, price, title, uid, quantity: 1, wishlist: isWishlist })
+    );
   }
   function handleWishList() {
-    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+    dispatch(UpdateWishListProduct({ price, title, src, uid, quantity: 1 }));
+
     setIsWishlist(!isWishlist);
   }
+  useEffect(() => {
+    dispatch(updateCartWishlist({ uid, wishlist: isWishlist }));
+  }, [isWishlist, uid, dispatch]);
   return (
     <div className="flex  flex-col items-center bg-white border  border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <img
@@ -39,7 +45,7 @@ function ProductDetails({ src, price, title, uid, description }) {
           </p>
           <div className="flex flex-row md:gap-2 md:ml-20 gap-5 ml-28">
             <span>
-              <a src={src}>
+              <a href={src} target="_blank">
                 <FaRegEye className="h-7 w-7 hover:text-blue-500 hover:cursor-pointer" />
               </a>
             </span>
