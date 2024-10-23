@@ -43,6 +43,7 @@ export default function Cart() {
               uid={item.uid}
               key={item.uid}
               defaultQuantity={item.quantity}
+              wishlist={item.wishlist}
             />
           ))
         ) : (

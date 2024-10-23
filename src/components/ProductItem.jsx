@@ -1,26 +1,45 @@
 import { Link } from "react-router-dom";
 import WishlistHeart from "./WishlistHeart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { MdAddShoppingCart } from "react-icons/md";
+import { BiSolidCartAdd } from "react-icons/bi";
 import {
-  TrackWishListItem,
+  addCart,
+  updateProductsWishlist,
   UpdateWishListProduct,
 } from "../Features/productSlice";
 import UseCurrency from "../hooks/UseCurrency";
-// import React from 'react';
 
-// export default LazyImageComponent;
-function ProductItem({ src, price, title, uid, wishlist }) {
-  // console.log(uid);
-  // console.log(wishlist);
+function ProductItem({ src, price, title, uid, defaultWishlist }) {
+  const [onCart, setOnCart] = useState(false);
   const dispatch = useDispatch();
-  const [isWishlist, setIsWishlist] = useState(false);
+  const [isWishlist, setIsWishlist] = useState(() =>
+    defaultWishlist ? defaultWishlist : false
+  );
   function handleWishList() {
-    dispatch(UpdateWishListProduct({ price, title, src, uid, quantity: 1 }));
+    dispatch(UpdateWishListProduct({ price, title, src, uid }));
+
     console.log(uid);
-    // dispatch(TrackWishListItem(uid));
     setIsWishlist(!isWishlist);
   }
+  useEffect(() => {
+    dispatch(updateProductsWishlist({ uid, wishlist: isWishlist }));
+  }, [uid, dispatch, isWishlist]);
+  function handleAddToCart() {
+    dispatch(
+      addCart({ src, price, title, uid, quantity: 1, wishlist: isWishlist })
+    );
+    // setTimeout(() => {
+    setOnCart(true);
+    console.log("hii inside settimeout");
+    // }, 500);
+    // setOnCart(false);
+    setTimeout(() => {
+      setOnCart(false);
+    }, 300);
+  }
+
   return (
     <div className="md:w-[300px] w-[160px] mt-7  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <button onClick={handleWishList} className="mt-3 md:ml-64 ml-24">
@@ -105,9 +124,16 @@ function ProductItem({ src, price, title, uid, wishlist }) {
 
         {/* Adjust this part for responsive layout */}
         <div className="flex flex-col md:flex-row md:items-center justify-between">
-          <span className="text-3xl font-bold text-gray-900 dark:text-white">
+          <span className="md:text-3xl text-2xl font-bold text-gray-900 dark:text-white">
             {`Rs.${UseCurrency(price)}`}
+            <button
+              className="md:ml-10 ml-5 md:text-2xl mt-1"
+              onClick={handleAddToCart}
+            >
+              {onCart ? <BiSolidCartAdd /> : <MdAddShoppingCart />}
+            </button>
           </span>
+
           <Link
             to={`/products/${uid}`}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4 md:mt-0 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

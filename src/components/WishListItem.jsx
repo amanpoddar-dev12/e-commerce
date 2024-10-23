@@ -31,7 +31,7 @@ function WishlistItem({ price, title, src, uid, wishlistItemQuantity }) {
     if (quantity > 1) setQuantity(quantity - 1);
   }
   function handleAddCart() {
-    dispatch(addCart({ price, title, src, uid, quantity }));
+    dispatch(addCart({ price, title, src, uid, quantity, wishlist: true }));
     dispatch(UpdateWishListProductQuantity({ uid, quantity }));
     setIsEnableCart(true);
   }

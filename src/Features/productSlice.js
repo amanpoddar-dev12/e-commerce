@@ -96,6 +96,20 @@ const productSlice = createSlice({
 
       console.log("inside addCart slice");
     },
+    updateProductsWishlist: (state, action) => {
+      state.products = state.products.map((product) =>
+        product.id === action.payload.uid
+          ? { ...product, wishlist: action.payload.wishlist }
+          : product
+      );
+    },
+    updateCartWishlist: (state, action) => {
+      state.cartProducts = state.cartProducts.map((product) =>
+        product.uid === action.payload.uid
+          ? { ...product, wishlist: action.payload.wishlist }
+          : product
+      );
+    },
     addCartQuantity: (state, action) => {
       state.cartProducts = state.cartProducts.map((product) =>
         product.uid === action.payload.uid
@@ -161,7 +175,9 @@ export const {
   resetFilters,
   Groceries,
   addCart,
+  updateProductsWishlist,
   totalCartPrice,
+  updateCartWishlist,
   removeCartProduct,
   UpdateWishListProduct,
   RemoveWishListProducts,

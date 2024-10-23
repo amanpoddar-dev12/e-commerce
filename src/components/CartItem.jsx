@@ -2,19 +2,24 @@ import React, { useEffect, useState } from "react";
 import UseCurrency from "../hooks/UseCurrency";
 import { useDispatch } from "react-redux";
 import {
+  addCart,
   addCartQuantity,
   removeCartProduct,
+  RemoveWishListProducts,
   totalCartPrice,
+  updateCartWishlist,
   UpdateWishListProduct,
 } from "../Features/productSlice";
 import WishlistHeart from "./WishlistHeart";
 
-function CartItem({ price, title, src, uid, defaultQuantity }) {
+function CartItem({ price, title, src, uid, defaultQuantity, wishlist }) {
   console.log(defaultQuantity);
   const [quantity, setQuantity] = useState(() =>
     defaultQuantity ? defaultQuantity : 1
   );
-  const [isWishlist, setIsWishlist] = useState(false);
+  const [isWishlist, setIsWishlist] = useState(() =>
+    wishlist ? wishlist : false
+  );
   console.log("inside cartItem");
   console.log(uid, src, price);
   // useEffect(() => {}, [quantity]);
@@ -23,6 +28,13 @@ function CartItem({ price, title, src, uid, defaultQuantity }) {
     dispatch(addCartQuantity({ uid, quantity }));
     dispatch(totalCartPrice());
   }, [quantity, dispatch, uid]);
+  useEffect(() => {
+    if (!isWishlist) {
+      dispatch(updateCartWishlist({ uid, wishlist: false }));
+      dispatch(RemoveWishListProducts(uid));
+    } else dispatch(updateCartWishlist({ uid, wishlist: true }));
+  }, [dispatch, isWishlist, uid]);
+
   function handleDelteItem(e) {
     e.preventDefault();
     dispatch(removeCartProduct(uid));
