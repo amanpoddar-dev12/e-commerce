@@ -17,7 +17,7 @@ function Home() {
     }
   }, [dispatch, products]);
   const productsSlices = useSelector((state) => state.product.products);
-
+  const searchProducts = useSelector((state) => state.product.searchProducts);
   console.log(productsSlices);
   const { filteredProducts } = useSelector((state) => state.product);
   const { cleanURL } = useContext(FireBaseContext);
@@ -40,7 +40,17 @@ function Home() {
   return (
     <div className="min-h-screen dark:bg-slate-900 bg-white">
       <div className="flex flex-wrap  dark:bg-slate-900 bg-white md:gap-3 gap-3 ml-[21px] md:ml-[140px]">
-        {filteredProducts?.length > 0
+        {searchProducts.length !== 0
+          ? searchProducts.map((product) => (
+              <ProductItem
+                key={product.id}
+                uid={product.id}
+                title={product.title}
+                price={product.price}
+                src={cleanURL(product.images[0])}
+              />
+            ))
+          : filteredProducts?.length > 0
           ? filteredProducts.map((product) => (
               <ProductItem
                 key={product.id}

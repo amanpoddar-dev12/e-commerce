@@ -37,16 +37,12 @@ export default function Navbar() {
 
   const { toggleDarkMode, darkMode } = useContext(UserContext);
   const { isLoggedIn, logout, user } = useContext(FireBaseContext);
-  const handleSearch = (query) => {
-    console.log("Searching for:", query);
-  };
+  // const handleSearch = (query) => {
+  //   console.log("Searching for:", query);
+  // };
   const [imgSrc, setImgSrc] = useState(null);
   useEffect(() => {
-    console.log(user);
     setImgSrc(user?.photoURL);
-    console.log("inside navbar profile");
-    console.log(imgSrc);
-    console.log(isLoggedIn);
   }, [user, imgSrc, isLoggedIn]);
   return (
     <Disclosure as="nav" className="dark:bg-gray-900 bg-white">
@@ -65,7 +61,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-x-2 md:ml-60">
               <div className="flex-1">
-                <Search onSearch={handleSearch} />
+                <Search />
               </div>
 
               <div className="flex-shrink-0">

@@ -1,6 +1,15 @@
-// import Filter from "./Filter";
+import { useDispatch } from "react-redux";
+import { searchProducts } from "../Features/productSlice";
+import { useMemo, useState } from "react";
 
 function Search() {
+  const [query, setQuery] = useState(null);
+  const dispatch = useDispatch();
+
+  useMemo(() => {
+    dispatch(searchProducts(query != null ? query : ""));
+  }, [dispatch, query]);
+
   return (
     <form className="max-w-md mx-auto md:w-96">
       <div className="relative ml-9  ">
@@ -27,6 +36,7 @@ function Search() {
           className="block w-full  p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search products... "
           required
+          onChange={(e) => setQuery(e.target.value)}
         />
         {/* <Filter /> */}
       </div>

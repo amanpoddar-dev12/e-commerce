@@ -21,6 +21,7 @@ const productSlice = createSlice({
   initialState: {
     products: [],
     filteredProducts: [],
+    searchProducts: [],
     cartProducts: [],
     loading: false,
     error: null,
@@ -68,6 +69,23 @@ const productSlice = createSlice({
       state.filteredProducts = state.products.filter(
         (product) => product.category === "fragrances"
       );
+    },
+
+    searchProducts: (state, action) => {
+      // action.payload.length===0?
+      state.searchProducts = state.products;
+      console.log(action.payload);
+      let query = action.payload;
+      // query = query.split("")[0];
+      const cleanQuery = query.replace(/[\[\]" ]/g, "").toLowerCase();
+      console.log(cleanQuery);
+      state.searchProducts = state.products.filter((product) => {
+        const productTitle = product.title;
+
+        return productTitle.toLowerCase().includes(cleanQuery);
+      });
+      console.log(state.products);
+      console.log(state.searchProducts);
     },
     resetFilters: (state) => {
       state.filteredProducts = state.products; // Reset filters
@@ -193,6 +211,8 @@ export const {
   Beauty,
   Shoes,
   resetFilters,
+
+  searchProducts,
   Groceries,
   addCart,
   updateProductsWishlist,
