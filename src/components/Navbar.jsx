@@ -50,7 +50,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0">
-              <Link to={"/"}>
+              <Link to={"/store"}>
                 <img
                   alt="Your Company"
                   src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
@@ -142,11 +142,11 @@ export default function Navbar() {
                 )}
                 <MenuItem>
                   <Link
-                    to={"/"}
+                    to={"/store"}
                     className="block px-4 py-2 text-sm dark:text-white hover:dark:bg-slate-800"
                   >
                     <Item
-                      name={"Home"}
+                      name={"Store"}
                       src={
                         "https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/Store-9eeae2.svg"
                       }

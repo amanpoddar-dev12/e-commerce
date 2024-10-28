@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import UseCurrency from "../hooks/UseCurrency";
 import { useDispatch } from "react-redux";
 import {
-  addCart,
   addCartQuantity,
   removeCartProduct,
   RemoveWishListProducts,
@@ -11,6 +10,7 @@ import {
   UpdateWishListProduct,
 } from "../Features/productSlice";
 import WishlistHeart from "./WishlistHeart";
+import toast from "react-hot-toast";
 
 function CartItem({ price, title, src, uid, defaultQuantity, wishlist }) {
   console.log(defaultQuantity);
@@ -36,15 +36,20 @@ function CartItem({ price, title, src, uid, defaultQuantity, wishlist }) {
   }, [dispatch, isWishlist, uid]);
 
   function handleDelteItem(e) {
+    console.log("inside delete item");
     e.preventDefault();
     dispatch(removeCartProduct(uid));
     dispatch(totalCartPrice());
+    toast.success("Item deleted successfully");
   }
   function handleAddToWishList() {
     setIsWishlist(!isWishlist);
     dispatch(
       UpdateWishListProduct({ price, title, src, uid, quantity: quantity })
     );
+    isWishlist
+      ? toast.success("Removed from wishList 🙁")
+      : toast.success("Added to wishList ❤️");
   }
 
   function handleAddQuntity() {

@@ -2,7 +2,7 @@ function ProductLoader() {
   return (
     <div
       role="status"
-      className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
+      className="md:w-[300px] w-[160px] mt-7  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
       <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
         <svg

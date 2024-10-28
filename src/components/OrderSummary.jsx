@@ -8,6 +8,7 @@ import {
   resetCartTotal,
 } from "../Features/productSlice";
 import UseCurrency from "../hooks/UseCurrency";
+import toast from "react-hot-toast";
 
 function OrderSummary() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function OrderSummary() {
     dispatch(setOrder(cartItems));
     dispatch(resetCart());
     dispatch(resetCartTotal());
+    toast.success("Order placed Successfully ");
   }
   // Calculations based on the total price
   const saving = (totalPrice * 30) / 100;
@@ -111,7 +113,7 @@ function OrderSummary() {
             or{" "}
           </span>
           <Link
-            to={"/"}
+            to={"/store"}
             title=""
             className="inline-flex items-center dark:text-white gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
           >

@@ -14,7 +14,7 @@ function Order() {
       </div>
     );
   return (
-    <div className="flex flex-col gap-4  p-10">
+    <div className="flex flex-col gap-4  p-10 ">
       <div className="rounded-lg border   border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
         {cartItems?.map((item) => (
           <OrderItem

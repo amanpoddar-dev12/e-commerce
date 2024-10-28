@@ -10,6 +10,7 @@ import {
   UpdateWishListProduct,
 } from "../Features/productSlice";
 import UseCurrency from "../hooks/UseCurrency";
+import toast from "react-hot-toast";
 
 function ProductItem({ src, price, title, uid, defaultWishlist }) {
   const [onCart, setOnCart] = useState(false);
@@ -22,6 +23,10 @@ function ProductItem({ src, price, title, uid, defaultWishlist }) {
 
     console.log(uid);
     setIsWishlist(!isWishlist);
+
+    isWishlist
+      ? toast.success("Removed from wishList 🙁")
+      : toast.success("Added to wishList ❤️");
   }
   useEffect(() => {
     dispatch(updateProductsWishlist({ uid, wishlist: isWishlist }));
@@ -30,6 +35,7 @@ function ProductItem({ src, price, title, uid, defaultWishlist }) {
     dispatch(
       addCart({ src, price, title, uid, quantity: 1, wishlist: isWishlist })
     );
+    toast.success("Added to cart successfully 😊");
     setOnCart(true);
     console.log("hii inside settimeout");
     setTimeout(() => {

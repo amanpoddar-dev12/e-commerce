@@ -16,24 +16,36 @@ const queryClient = new QueryClient();
 
 import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
-import App from "./App.jsx";
+
 import Loader from "./components/Loader.jsx";
+import Pagelayout from "./Pagelayout.jsx";
+import Home from "./pages/Home.jsx";
+import { ToastBar, Toaster } from "react-hot-toast";
 
 const ViewProduct = lazy(() => import("./pages/ViewProduct.jsx"));
 const Order = lazy(() => import("./pages/Order.jsx"));
-const Home = lazy(() => import("./pages/Home.jsx"));
+const Store = lazy(() => import("./pages/Store.jsx"));
 const Profile = lazy(() => import("./pages/Profile.jsx"));
 const Wishlist = lazy(() => import("./pages/Wishlist.jsx"));
 const Cart = lazy(() => import("./pages/Cart.jsx"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path="/" element={<Pagelayout />}>
       <Route
         index
         element={
           <Suspense fallback={<Loader />}>
             <Home />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/store"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Store />
           </Suspense>
         }
       />
@@ -94,6 +106,26 @@ createRoot(document.getElementById("root")).render(
           </Provider>
         </ThemeProvider>
       </FireBaseProvider>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        height={"20px"}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: { duration: 3000 },
+          error: {
+            duration: 5000,
+          },
+          className: "dark:text-white",
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-0)",
+            color: "var(--color-grey-700)",
+          },
+        }}
+      />
     </QueryClientProvider>
   </StrictMode>
 );

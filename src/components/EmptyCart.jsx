@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function EmptyCart({ status }) {
   return (
-    <div className="flex flex-col gap-4 dark:text-white text-black text-center items-center">
+    <div className="flex flex-col gap-4 dark:text-white text-black text-center items-center py-20">
       <img
         className="w-96"
         src={

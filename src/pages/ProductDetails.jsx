@@ -10,6 +10,7 @@ import { UpdateWishListProduct } from "../Features/productSlice";
 import UseCurrency from "../hooks/UseCurrency";
 import { useEffect, useState } from "react";
 import WishlistHeart from "../components/WishlistHeart";
+import toast from "react-hot-toast";
 // import UseCurrency from "../hooks/UseCurrency";
 function ProductDetails({ src, price, title, uid, description }) {
   const [isWishlist, setIsWishlist] = useState(false);
@@ -19,10 +20,13 @@ function ProductDetails({ src, price, title, uid, description }) {
     dispatch(
       addCart({ src, price, title, uid, quantity: 1, wishlist: isWishlist })
     );
+    toast.success("Added to cart successfully 😊");
   }
   function handleWishList() {
     dispatch(UpdateWishListProduct({ price, title, src, uid, quantity: 1 }));
-
+    isWishlist
+      ? toast.success("Removed from wishList 🙁")
+      : toast.success("Added to wishList ❤️");
     setIsWishlist(!isWishlist);
   }
   useEffect(() => {

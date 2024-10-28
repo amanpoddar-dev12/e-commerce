@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import ProductLoader from "../components/ProductLoader";
 import ProductDetails from "./ProductDetails";
 import { FireBaseContext } from "../context/authentication/UserContext";
-// import useProductById from "../services/useProductById";
 import { useGetProductsByIdQuery } from "../Features/productSlice";
 
 function ViewProduct() {
@@ -12,6 +11,7 @@ function ViewProduct() {
 
   const { data: item, isLoading, error } = useGetProductsByIdQuery(id);
   console.log(item);
+  
   if (isLoading)
     return (
       <div className="flex flex-row min-h-screen justify-center items-center">
