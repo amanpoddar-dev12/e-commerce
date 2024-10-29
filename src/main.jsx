@@ -20,7 +20,8 @@ import SignUp from "./components/SignUp.jsx";
 import Loader from "./components/Loader.jsx";
 import Pagelayout from "./Pagelayout.jsx";
 import Home from "./pages/Home.jsx";
-import { ToastBar, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import PageNotFound from "./pages/PageNotFound.jsx";
 
 const ViewProduct = lazy(() => import("./pages/ViewProduct.jsx"));
 const Order = lazy(() => import("./pages/Order.jsx"));
@@ -92,6 +93,7 @@ const router = createBrowserRouter(
           </Suspense>
         }
       />
+      <Route path="*" element={<PageNotFound />} />
     </Route>
   )
 );
