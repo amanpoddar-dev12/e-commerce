@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="h-[700px]">
-      <div className=" dark:text-white  md:text-5xl  text-3xl text-center flex flex-col justify-center md:mt-36 mt-20 gap-10 font-bold">
+      <div className=" dark:text-white  md:text-5xl  text-3xl text-center flex flex-col justify-center md:mt-14 lg:mt-26 mt-20 gap-10 font-bold">
         <p className="md:text-9xl text-7xl mr-0 ">Jestify</p>
         <p className="">"Where Every Click Adds Spark to Your Style!"</p>
       </div>

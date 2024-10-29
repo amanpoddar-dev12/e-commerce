@@ -23,7 +23,9 @@ function Store() {
   const { cleanURL } = useContext(FireBaseContext);
   if (isLoading) {
     return (
-      <div className="flex flex-wrap mt-20  dark:bg-slate-900 bg-white md:gap-3 gap-3 ml-[21px] md:ml-[140px]">
+      <div className="flex flex-wrap mt-10  dark:bg-slate-900 bg-white md:gap-7 gap-3 ml-[21px] md:ml-[140px]">
+        <ProductLoader />
+        <ProductLoader />
         <ProductLoader />
         <ProductLoader />
         <ProductLoader />
