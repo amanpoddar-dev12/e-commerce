@@ -10,7 +10,11 @@ function Profile() {
         {user?.photoURL ? (
           <img
             className="w-32 mx-auto rounded-full -mt-20 border-8 border-white "
-            src={user?.photoURL}
+            src={
+              user?.photoURL
+                ? user.photoURL
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            }
             alt=""
           />
         ) : (

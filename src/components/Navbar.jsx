@@ -34,16 +34,14 @@ export default function Navbar() {
   const { cartProducts, wishlistProducts } = useSelector(
     (state) => state.product
   );
-
   const { toggleDarkMode, darkMode } = useContext(UserContext);
   const { isLoggedIn, logout, user } = useContext(FireBaseContext);
-  // const handleSearch = (query) => {
-  //   console.log("Searching for:", query);
-  // };
+
   const [imgSrc, setImgSrc] = useState(null);
   useEffect(() => {
     setImgSrc(user?.photoURL);
   }, [user, imgSrc, isLoggedIn]);
+  console.log(imgSrc);
   return (
     <Disclosure as="nav" className="dark:bg-gray-900 bg-white">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
