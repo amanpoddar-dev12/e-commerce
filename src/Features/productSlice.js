@@ -33,7 +33,7 @@ const productSlice = createSlice({
   reducers: {
     getProductsData: (state, action) => {
       state.products = action.payload;
-      console.log(state.products);
+      // console.log(state.products);
     },
 
     Clothes: (state) => {
@@ -56,9 +56,9 @@ const productSlice = createSlice({
       state.filteredProducts = state.products.filter(
         (product) => product.category === "beauty"
       );
-      console.log("Inside beauty slice ");
-      console.log(state.products.products);
-      console.log(state.filteredProducts);
+      // console.log("Inside beauty slice ");
+      // console.log(state.products.products);
+      // console.log(state.filteredProducts);
     },
     Shoes: (state) => {
       state.filteredProducts = state.products.filter(
@@ -74,7 +74,7 @@ const productSlice = createSlice({
     searchProducts: (state, action) => {
       // action.payload.length===0?
       state.searchProducts = state.products;
-      console.log(action.payload);
+      // console.log(action.payload);
       let query = action.payload;
       // query = query.split("")[0];
       const cleanQuery = query.replace(/[\[\]" ]/g, "").toLowerCase();

@@ -16,7 +16,7 @@ function ProductDetails({ src, price, title, uid, description }) {
   const [isWishlist, setIsWishlist] = useState(false);
   const dispatch = useDispatch();
   function handleCartItems() {
-    console.log("Inside product details");
+    // console.log("Inside product details");
     dispatch(
       addCart({ src, price, title, uid, quantity: 1, wishlist: isWishlist })
     );
@@ -67,6 +67,7 @@ function ProductDetails({ src, price, title, uid, description }) {
             size={20}
             color="gold"
             onSetMovieRating={(rating) => console.log(`New rating: ${rating}`)}
+            key={uid}
           />
         </p>
         <div className="flex flex-row gap-5 mb-3 p-0  dark:text-white text-black">

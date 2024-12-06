@@ -22,7 +22,7 @@ function OrderSummary() {
   // Dispatch the action to calculate total price when component mounts
   useEffect(() => {
     dispatch(totalCartPrice());
-    console.log("OrderSummary - totalCartPrice dispatched");
+    // console.log("OrderSummary - totalCartPrice dispatched");
   }, [dispatch]);
 
   // Update total price whenever the total in Redux changes

@@ -13,15 +13,15 @@ import WishlistHeart from "./WishlistHeart";
 import toast from "react-hot-toast";
 
 function CartItem({ price, title, src, uid, defaultQuantity, wishlist }) {
-  console.log(defaultQuantity);
+  // console.log(defaultQuantity);
   const [quantity, setQuantity] = useState(() =>
     defaultQuantity ? defaultQuantity : 1
   );
   const [isWishlist, setIsWishlist] = useState(() =>
     wishlist ? wishlist : false
   );
-  console.log("inside cartItem");
-  console.log(uid, src, price);
+  // console.log("inside cartItem");
+  // console.log(uid, src, price);
   // useEffect(() => {}, [quantity]);
   const dispatch = useDispatch();
   useEffect(() => {

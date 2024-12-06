@@ -6,7 +6,7 @@ import OrderCompltedSummary from "../components/OrderCompltedSummary";
 
 function Order() {
   const cartItems = useSelector((state) => state.product.orderItems);
-  console.log(cartItems);
+  // console.log(cartItems);
   if (cartItems.length === 0)
     return (
       <div className="mt-10">

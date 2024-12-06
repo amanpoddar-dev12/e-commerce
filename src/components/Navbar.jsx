@@ -41,7 +41,7 @@ export default function Navbar() {
   useEffect(() => {
     setImgSrc(user?.photoURL);
   }, [user, imgSrc, isLoggedIn]);
-  console.log(imgSrc);
+  // console.log(imgSrc);
   return (
     <Disclosure as="nav" className="dark:bg-gray-900 bg-white">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

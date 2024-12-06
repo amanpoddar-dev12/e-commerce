@@ -11,9 +11,9 @@ export default function Cart() {
   const [isAddressEnable, setIsAddressEnable] = useState(false);
   // useEffect(())
   const { cartProducts } = useSelector((state) => state.product);
-  console.log(cartProducts);
+  // console.log(cartProducts);
   //   const { src, price, title, uid, description } = cartProducts;
-  console.log("inside cart ");
+  // console.log("inside cart ");
   //   console.log(src, price, title, uid, description);
 
   return (
